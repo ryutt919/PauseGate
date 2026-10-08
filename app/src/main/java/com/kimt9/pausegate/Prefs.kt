@@ -2,12 +2,26 @@ package com.kimt9.pausegate
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.drawable.GradientDrawable
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-/** 화면 색 조합. 설정에서 고르고, 개입 화면에 그대로 반영된다. */
-data class Theme(val name: String, val bg: Int, val accent: Int, val text: Int)
+/**
+ * 화면 색 조합. 설정에서 고르고, 개입 화면에 그대로 반영된다.
+ * bg는 물에 잠긴 글자와 버튼 글자 색으로도 쓰인다. metal이면 배경, 버튼, 물결에 금속 그라데이션을 쓴다.
+ */
+data class Theme(val name: String, val bg: Int, val accent: Int, val text: Int, val metal: Boolean = false) {
+    fun backgroundDrawable(): GradientDrawable =
+        if (metal) {
+            GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                intArrayOf(0xFF4A4E55.toInt(), 0xFF2B2E33.toInt(), 0xFF1B1D21.toInt()),
+            )
+        } else {
+            GradientDrawable().apply { setColor(bg) }
+        }
+}
 
 object Themes {
     val all = listOf(
@@ -16,6 +30,7 @@ object Themes {
         Theme("노을", 0xFF2A1618.toInt(), 0xFFFF9A76.toInt(), 0xFFFBEDE8.toInt()),
         Theme("라벤더", 0xFF1D1830.toInt(), 0xFFB79CFF.toInt(), 0xFFF0EBFF.toInt()),
         Theme("종이", 0xFFF5F1E8.toInt(), 0xFF3F7D6E.toInt(), 0xFF222222.toInt()),
+        Theme("메탈", 0xFF1E2024.toInt(), 0xFFB9BEC5.toInt(), 0xFFF2F3F5.toInt(), metal = true),
     )
 }
 

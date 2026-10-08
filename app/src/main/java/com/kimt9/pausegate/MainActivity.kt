@@ -159,11 +159,10 @@ class MainActivity : Activity() {
             row.addView(
                 TextView(this).apply {
                     text = t.name
-                    textSize = 12f
+                    textSize = 11f
                     gravity = Gravity.CENTER
                     setTextColor(t.text)
-                    background = GradientDrawable().apply {
-                        setColor(t.bg)
+                    background = t.backgroundDrawable().apply {
                         cornerRadius = px(12).toFloat()
                         setStroke(px(if (i == prefs.themeIdx) 3 else 1), t.accent)
                     }
