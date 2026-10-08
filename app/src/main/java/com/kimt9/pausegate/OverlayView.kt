@@ -10,6 +10,7 @@ import android.graphics.Rect
 import android.graphics.Shader
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.InsetDrawable
 import android.os.Build
 import android.util.TypedValue
 import android.view.Gravity
@@ -241,24 +242,34 @@ class OverlayView(
         // 맨 위: 닫기(강조)와 열기(약하게, 대기 시간 표시)
         val close = text("닫기", 18f, bold = true).apply {
             setTextColor(if (theme.bg == 0xFFF5F1E8.toInt()) 0xFFFFFFFF.toInt() else theme.bg)
-            background = if (theme.metal) {
-                GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(0xFFF1F3F6.toInt(), 0xFFA9B0B9.toInt()))
-                    .apply { cornerRadius = dp(26).toFloat() }
-            } else {
-                GradientDrawable().apply { setColor(theme.accent); cornerRadius = dp(26).toFloat() }
-            }
+            // 터치 영역은 52dp, 눈에 보이는 모양은 사방 2dp 안쪽으로 그려 가장자리가 잘리지 않게 한다.
+            background = InsetDrawable(
+                if (theme.metal) {
+                    GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(0xFFF1F3F6.toInt(), 0xFFA9B0B9.toInt()))
+                        .apply { cornerRadius = dp(24).toFloat() }
+                } else {
+                    GradientDrawable().apply { setColor(theme.accent); cornerRadius = dp(24).toFloat() }
+                },
+                dp(2),
+            )
             setOnClickListener { onClose() }
         }
         val open = text("", 15f).apply {
-            background = GradientDrawable().apply {
-                setColor(0x00000000)
-                setStroke(dp(1), (theme.text and 0x00FFFFFF) or (0x99 shl 24))
-                cornerRadius = dp(26).toFloat()
-            }
+            background = InsetDrawable(
+                GradientDrawable().apply {
+                    setColor(0x00000000)
+                    setStroke(dp(1), (theme.text and 0x00FFFFFF) or (0x99 shl 24))
+                    cornerRadius = dp(24).toFloat()
+                },
+                dp(2),
+            )
             setOnClickListener { if (remaining <= 0) onOpen() }
         }
         openBtn = open
-        val buttons = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
+        val buttons = LinearLayout(context).apply {
+            orientation = LinearLayout.HORIZONTAL
+            clipChildren = false
+        }
         buttons.addView(close, LinearLayout.LayoutParams(0, dp(52), 1f))
         buttons.addView(open, LinearLayout.LayoutParams(0, dp(52), 1f).apply { leftMargin = dp(10) })
         root.addView(buttons, LinearLayout.LayoutParams(-1, -2))
@@ -285,9 +296,10 @@ class OverlayView(
     }
 
     private fun refreshOpenButton() {
+        // 뷰 alpha를 쓰면 가장자리가 잘려 보이므로 글자 색의 투명도로만 흐리게 한다.
         openBtn?.apply {
             text = if (remaining > 0) "${remaining}초 후 열기" else "그래도 열기"
-            alpha = if (remaining > 0) 0.55f else 0.95f
+            setTextColor((theme.text and 0x00FFFFFF) or ((if (remaining > 0) 0x8C else 0xF2) shl 24))
         }
     }
 
