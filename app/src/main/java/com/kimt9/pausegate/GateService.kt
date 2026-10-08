@@ -16,8 +16,12 @@ class GateService : AccessibilityService() {
 
     private lateinit var prefs: Prefs
     private lateinit var wm: WindowManager
+    private lateinit var stats: StatsDb
     private var overlay: OverlayView? = null
     private var overlayPkg: String? = null
+
+    /** 지금 떠 있는 개입의 기록 id. 결과가 정해지면 null로 돌린다. */
+    private var eventId: Long? = null
 
     /** 앱별 "그냥 열기" 허용이 끝나는 시각(uptime ms) */
     private val graceUntil = HashMap<String, Long>()
@@ -28,6 +32,13 @@ class GateService : AccessibilityService() {
         super.onServiceConnected()
         prefs = Prefs(this)
         wm = getSystemService(WINDOW_SERVICE) as WindowManager
+        stats = StatsDb.get(this)
+        stats.settlePending()
+    }
+
+    private fun finishEvent(outcome: String) {
+        eventId?.let { stats.finish(it, outcome) }
+        eventId = null
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
@@ -54,7 +65,9 @@ class GateService : AccessibilityService() {
 
     private fun showOverlay(pkg: String) {
         val limit = prefs.limitMin(pkg)
-        val limitReached = limit > 0 && Util.usedTodayMs(this, pkg) >= limit * 60_000L
+        val usedMs = Util.usedTodayMs(this, pkg)
+        if (usedMs > 0) stats.recordUsage(StatsDb.today(), pkg, usedMs)
+        val limitReached = limit > 0 && usedMs >= limit * 60_000L
         val view = OverlayView(
             context = this,
             theme = prefs.theme,
@@ -64,12 +77,12 @@ class GateService : AccessibilityService() {
             breathing = prefs.breathing,
             limitReached = limitReached,
             onOpen = {
-                prefs.bump(Prefs.Stat.OPENED)
+                finishEvent("OPENED")
                 graceUntil[pkg] = SystemClock.uptimeMillis() + prefs.graceMin * 60_000L
                 removeOverlay()
             },
             onClose = {
-                prefs.bump(Prefs.Stat.CLOSED)
+                finishEvent("CLOSED")
                 lastClosePkg = pkg
                 lastCloseAt = SystemClock.uptimeMillis()
                 removeOverlay()
@@ -89,10 +102,12 @@ class GateService : AccessibilityService() {
         wm.addView(view, lp)
         overlay = view
         overlayPkg = pkg
-        prefs.bump(Prefs.Stat.SHOWN)
+        eventId = stats.begin(pkg, limitReached)
     }
 
+    /** 버튼 없이 개입 화면이 사라지는 경우(다른 앱으로 이동, 서비스 중단)는 DISMISSED로 남긴다. */
     private fun removeOverlay() {
+        finishEvent("DISMISSED")
         overlay?.let { wm.removeView(it) }
         overlay = null
         overlayPkg = null

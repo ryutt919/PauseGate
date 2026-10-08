@@ -3,9 +3,6 @@ package com.kimt9.pausegate
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.GradientDrawable
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 /**
  * 화면 색 조합. 설정에서 고르고, 개입 화면에 그대로 반영된다.
@@ -73,20 +70,4 @@ class Prefs(context: Context) {
     /** 앱별 하루 사용 한도(분). 0이면 한도 없음. */
     fun limitMin(pkg: String): Int = sp.getInt("limit_$pkg", 0)
     fun setLimitMin(pkg: String, min: Int) = sp.edit().putInt("limit_$pkg", min).apply()
-
-    // ---- 통계: 날짜별 개입 횟수 ----
-    private fun today(): String = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date())
-
-    enum class Stat { SHOWN, CLOSED, OPENED }
-
-    fun bump(stat: Stat) {
-        val key = "stat_${today()}_${stat.name}"
-        sp.edit().putInt(key, sp.getInt(key, 0) + 1).apply()
-    }
-
-    fun statToday(stat: Stat): Int = sp.getInt("stat_${today()}_${stat.name}", 0)
-
-    fun statTotal(stat: Stat): Int =
-        sp.all.entries.filter { it.key.startsWith("stat_") && it.key.endsWith("_${stat.name}") }
-            .sumOf { (it.value as? Int) ?: 0 }
 }

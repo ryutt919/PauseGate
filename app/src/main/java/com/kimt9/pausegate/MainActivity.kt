@@ -97,9 +97,16 @@ class MainActivity : Activity() {
         })
 
         section("5. 통계")
-        body("오늘 개입 ${prefs.statToday(Prefs.Stat.SHOWN)}회 / 닫기 ${prefs.statToday(Prefs.Stat.CLOSED)}회 / 그래도 열기 ${prefs.statToday(Prefs.Stat.OPENED)}회")
-        body("누적 개입 ${prefs.statTotal(Prefs.Stat.SHOWN)}회 / 닫기 ${prefs.statTotal(Prefs.Stat.CLOSED)}회 / 그래도 열기 ${prefs.statTotal(Prefs.Stat.OPENED)}회")
-        usageList()
+        val db = StatsDb.get(this)
+        val today = StatsDb.today()
+        val t = db.dayStats(today, today)[today]
+        val all = db.dayStats(StatsDb.FIRST, StatsDb.LAST).values
+        body("오늘 개입 ${t?.shown ?: 0}회 / 참음 ${t?.resisted ?: 0}회 / 그래도 열기 ${t?.opened ?: 0}회")
+        body("누적 개입 ${all.sumOf { it.shown }}회 / 참음 ${all.sumOf { it.resisted }}회 / 그래도 열기 ${all.sumOf { it.opened }}회")
+        content.addView(Button(this).apply {
+            text = "통계 자세히 보기 (앱별, 달력)"
+            setOnClickListener { startActivity(Intent(this@MainActivity, StatsActivity::class.java)) }
+        })
     }
 
     // ---- 작은 UI 도우미 ----
@@ -172,24 +179,6 @@ class MainActivity : Activity() {
             )
         }
         content.addView(row)
-    }
-
-    private fun usageList() {
-        if (!Util.hasUsageAccess(this)) {
-            body("사용 정보 접근을 허용하면 오늘 사용 시간이 여기에 보입니다.")
-            return
-        }
-        val rows = prefs.gated
-            .map { it to Util.usedTodayMs(this, it) }
-            .filter { it.second > 0 }
-            .sortedByDescending { it.second }
-            .take(8)
-        label("오늘 사용 시간 (선택한 앱)")
-        if (rows.isEmpty()) body("아직 기록이 없습니다.")
-        rows.forEach { (pkg, ms) ->
-            val limit = prefs.limitMin(pkg)
-            body("${Util.labelOf(this, pkg)}: ${ms / 60_000}분" + if (limit > 0) " / 한도 ${limit}분" else "")
-        }
     }
 
     private fun preview() {
