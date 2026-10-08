@@ -73,7 +73,7 @@ class MainActivity : Activity() {
         slider("기다리는 시간", prefs.delaySec, 3, 30, "초") { prefs.delaySec = it }
         slider("그래도 열기 후 다시 묻지 않는 시간", prefs.graceMin, 1, 30, "분") { prefs.graceMin = it }
         content.addView(Switch(this).apply {
-            text = "숨쉬기 원 보이기"
+            text = "숨쉬기 연출 보이기"
             isChecked = prefs.breathing
             setOnCheckedChangeListener { _, on -> prefs.breathing = on }
         })

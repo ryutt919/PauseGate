@@ -23,6 +23,7 @@ class AppPickerActivity : Activity() {
     private lateinit var prefs: Prefs
     private var all: List<AppInfo> = emptyList()
     private var shown: List<AppInfo> = emptyList()
+    private var query = ""
     private val selected = HashSet<String>()
     private lateinit var adapter: Adapter
     private lateinit var countText: TextView
@@ -35,11 +36,11 @@ class AppPickerActivity : Activity() {
         prefs = Prefs(this)
         selected.addAll(prefs.gated)
         all = Util.launchableApps(this)
-        shown = all
 
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(px(16), px(24), px(16), 0)
+            val land = resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+            setPadding(px(16), px(if (land) 8 else 24), px(16), 0)
         }
         countText = TextView(this).apply { textSize = 20f; setTypeface(typeface, android.graphics.Typeface.BOLD) }
         root.addView(countText)
@@ -67,6 +68,7 @@ class AppPickerActivity : Activity() {
         root.addView(bar)
 
         adapter = Adapter()
+        rebuild()
         root.addView(ListView(this).apply { this.adapter = this@AppPickerActivity.adapter; divider = null },
             LinearLayout.LayoutParams(-1, 0, 1f))
         setContentView(root)
@@ -74,15 +76,22 @@ class AppPickerActivity : Activity() {
     }
 
     private fun filter(q: String) {
-        val k = q.trim().lowercase()
-        shown = if (k.isEmpty()) all else all.filter { it.label.lowercase().contains(k) }
+        query = q
+        rebuild()
+    }
+
+    /** 검색 결과 안에서 선택된 앱을 항상 맨 위에 둔다. 각 묶음 안에서는 이름순이 유지된다. */
+    private fun rebuild() {
+        val k = query.trim().lowercase()
+        val base = if (k.isEmpty()) all else all.filter { it.label.lowercase().contains(k) }
+        shown = base.filter { it.pkg in selected } + base.filter { it.pkg !in selected }
         adapter.notifyDataSetChanged()
     }
 
     private fun commit() {
         prefs.gated = selected
         updateCount()
-        adapter.notifyDataSetChanged()
+        rebuild()
     }
 
     private fun updateCount() {
@@ -118,6 +127,7 @@ class AppPickerActivity : Activity() {
                     if (isChecked) selected.add(app.pkg) else selected.remove(app.pkg)
                     prefs.gated = selected
                     updateCount()
+                    rebuild()
                 }
             }
             row.addView(check)
