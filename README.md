@@ -10,10 +10,15 @@
 - 색 조합 5종, 문구, 대기 시간, 숨쉬기 원 켜기 / 끄기, 미리보기
 
 ## 빌드
-필요한 것: JDK 17, Android SDK (platform 34, build-tools 34.0.0), Gradle 8.7 이상
+필요한 것: JDK 17, Android SDK (platform 34, build-tools 34.0.0). Gradle은 wrapper가 내려받습니다.
+
+프로젝트 루트에 `local.properties`를 만들고 SDK 경로를 적습니다. Windows에서도 슬래시를 쓰세요. 역슬래시는 이스케이프로 깨져서 빌드가 실패합니다.
+
+```
+sdk.dir=C:/Users/내이름/AndroidProjects/_tools/sdk
+```
 
 ```bash
-gradle wrapper --gradle-version 8.7
 ./gradlew assembleRelease
 ```
 
