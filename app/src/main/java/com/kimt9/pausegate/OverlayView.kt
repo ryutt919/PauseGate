@@ -12,6 +12,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.InsetDrawable
 import android.os.Build
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
@@ -157,7 +158,7 @@ class BreathView(
 /**
  * 개입 화면 전체. 접근성 오버레이 창에 그대로 붙인다.
  * 맨 위에 닫기와 열기 버튼, 가운데에 문구, 그 아래에 안내 문구 자리를 둔다.
- * @param limitReached 오늘 사용 한도를 넘긴 앱이면 true. 더 오래 기다리게 한다.
+ * @param limitReached 오늘 사용 한도를 넘긴 앱이면 true. 독립된 한도 초과 대기를 적용한다.
  */
 class OverlayView(
     context: Context,
@@ -167,6 +168,7 @@ class OverlayView(
     delaySec: Int,
     private val breathing: Boolean,
     limitReached: Boolean,
+    limitDelaySec: Int = DurationPolicy.DEFAULT_LIMIT_DELAY_SECONDS,
     private val onOpen: () -> Unit,
     private val onClose: () -> Unit,
 ) : FrameLayout(context) {
@@ -174,7 +176,9 @@ class OverlayView(
     private val density = resources.displayMetrics.density
     private fun dp(v: Int) = (v * density).toInt()
     private val labelText = if (limitReached) "$appLabel, 오늘 한도를 넘었어요" else appLabel
-    private var remaining = if (limitReached) maxOf(delaySec * 3, 20) else delaySec
+    private val waitSeconds = if (limitReached) limitDelaySec else delaySec
+    private var deadlineMs = 0L
+    private var remaining = waitSeconds
 
     private var openBtn: TextView? = null
     private var landscape: Boolean? = null
@@ -186,7 +190,7 @@ class OverlayView(
 
     private val tick = object : Runnable {
         override fun run() {
-            remaining--
+            remaining = DurationPolicy.remainingSeconds(deadlineMs, SystemClock.elapsedRealtime())
             refreshOpenButton()
             if (remaining > 0) postDelayed(this, 1000)
         }
@@ -263,7 +267,11 @@ class OverlayView(
                 },
                 dp(2),
             )
-            setOnClickListener { if (remaining <= 0) onOpen() }
+            setOnClickListener {
+                remaining = DurationPolicy.remainingSeconds(deadlineMs, SystemClock.elapsedRealtime())
+                refreshOpenButton()
+                if (remaining <= 0) onOpen()
+            }
         }
         openBtn = open
         val buttons = LinearLayout(context).apply {
@@ -298,7 +306,8 @@ class OverlayView(
     private fun refreshOpenButton() {
         // 뷰 alpha를 쓰면 가장자리가 잘려 보이므로 글자 색의 투명도로만 흐리게 한다.
         openBtn?.apply {
-            text = if (remaining > 0) "${remaining}초 후 열기" else "그래도 열기"
+            text = if (remaining > 0) "${DurationPolicy.formatCountdown(remaining)} 후 열기" else "그래도 열기"
+            contentDescription = if (remaining > 0) "${DurationPolicy.format(remaining)} 후 열기" else "그래도 열기"
             setTextColor((theme.text and 0x00FFFFFF) or ((if (remaining > 0) 0x8C else 0xF2) shl 24))
         }
     }
@@ -306,7 +315,10 @@ class OverlayView(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         requestFocus()
-        postDelayed(tick, 1000)
+        if (deadlineMs == 0L) deadlineMs = SystemClock.elapsedRealtime() + DurationPolicy.millis(waitSeconds)
+        remaining = DurationPolicy.remainingSeconds(deadlineMs, SystemClock.elapsedRealtime())
+        refreshOpenButton()
+        if (remaining > 0) postDelayed(tick, 1000)
     }
 
     override fun onDetachedFromWindow() {

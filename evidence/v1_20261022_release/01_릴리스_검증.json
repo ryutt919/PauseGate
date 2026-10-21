@@ -1,0 +1,32 @@
+{
+  "version": "v1",
+  "app_version": "0.5.0",
+  "version_code": 6,
+  "created_at": "2026-10-22 00:50:01 KST",
+  "model": "gpt-6",
+  "requirements": "통계 테마 홈과 세 시간 설정 최대24시간, 검토 후 릴리스",
+  "apk": "build/releases/v1_20261022/01_PauseGate-0.5.0.apk",
+  "apk_bytes": 1614528,
+  "apk_sha256": "2dc1bec01e536d0bee8d907a3bc77a048926f2589c3bfc0c903322e403e296a1",
+  "certificate_sha256": "ecb4ca12e3d212ef619d34533510fa94449fd7a532d83873333f510a4ab347c3",
+  "application_id": "com.kimt9.pausegate",
+  "unit_tests": {
+    "total": 12,
+    "failures": 0,
+    "errors": 0
+  },
+  "gradle": "assembleRelease lintRelease BUILD SUCCESSFUL",
+  "lint": {
+    "errors": 0,
+    "warnings": 19
+  },
+  "source_baseline": "148483543fac8a97efa6f1613d3a788082f80254",
+  "emulator": "API35: 세 시간24h 저장,24:00:01 거부, 취소, 덮어설치/재시작 유지, 통계 왕복, 종이/숲 테마 통과",
+  "limits": [
+    "실기기 미검증",
+    "24시간 실시간 대기 미실시",
+    "유예는 수동 기기 시각 변경 영향",
+    "접근성 서비스의 대상앱 개입 실행 미검증"
+  ],
+  "ui_notes": "최초 시스템UI ANR은 Wait1회 후 해소.09 XML이 초과거부 근거이며07 XML은 초기 좌표조작 실패 화면."
+}

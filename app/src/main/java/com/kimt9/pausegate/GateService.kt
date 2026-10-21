@@ -23,8 +23,6 @@ class GateService : AccessibilityService() {
     /** 지금 떠 있는 개입의 기록 id. 결과가 정해지면 null로 돌린다. */
     private var eventId: Long? = null
 
-    /** 앱별 "그냥 열기" 허용이 끝나는 시각(uptime ms) */
-    private val graceUntil = HashMap<String, Long>()
     private var lastClosePkg: String? = null
     private var lastCloseAt = 0L
 
@@ -51,7 +49,7 @@ class GateService : AccessibilityService() {
 
         if (!prefs.enabled || pkg !in prefs.gated || overlay != null) return
         if (pkg == lastClosePkg && SystemClock.uptimeMillis() - lastCloseAt < 1500) return
-        if (SystemClock.uptimeMillis() < (graceUntil[pkg] ?: 0L)) return
+        if (System.currentTimeMillis() < prefs.graceUntilMs(pkg)) return
 
         showOverlay(pkg)
     }
@@ -74,11 +72,12 @@ class GateService : AccessibilityService() {
             appLabel = Util.labelOf(this, pkg),
             message = prefs.message,
             delaySec = prefs.delaySec,
+            limitDelaySec = prefs.limitDelaySec,
             breathing = prefs.breathing,
             limitReached = limitReached,
             onOpen = {
                 finishEvent("OPENED")
-                graceUntil[pkg] = SystemClock.uptimeMillis() + prefs.graceMin * 60_000L
+                prefs.setGraceUntilMs(pkg, System.currentTimeMillis() + DurationPolicy.millis(prefs.graceSec))
                 removeOverlay()
             },
             onClose = {

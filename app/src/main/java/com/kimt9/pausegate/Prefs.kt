@@ -31,9 +31,10 @@ object Themes {
     )
 }
 
-class Prefs(context: Context) {
-    private val sp: SharedPreferences =
-        context.applicationContext.getSharedPreferences("pausegate", Context.MODE_PRIVATE)
+class Prefs internal constructor(private val sp: SharedPreferences) {
+    constructor(context: Context) : this(
+        context.applicationContext.getSharedPreferences("pausegate", Context.MODE_PRIVATE),
+    )
 
     var enabled: Boolean
         get() = sp.getBoolean("enabled", true)
@@ -45,13 +46,39 @@ class Prefs(context: Context) {
 
     /** 개입 화면에서 "그냥 열기"를 누를 수 있기까지 기다리는 초 */
     var delaySec: Int
-        get() = sp.getInt("delaySec", 7)
-        set(v) = sp.edit().putInt("delaySec", v).apply()
+        get() = sp.getInt("delaySec", 7).coerceIn(DurationPolicy.MIN_DELAY_SECONDS, DurationPolicy.MAX_SECONDS)
+        set(v) {
+            require(v in DurationPolicy.MIN_DELAY_SECONDS..DurationPolicy.MAX_SECONDS)
+            sp.edit().putInt("delaySec", v).apply()
+        }
 
-    /** "그냥 열기" 후 다시 묻지 않는 분 */
-    var graceMin: Int
-        get() = sp.getInt("graceMin", 5)
-        set(v) = sp.edit().putInt("graceMin", v).apply()
+    /** "그래도 열기" 후 다시 묻지 않는 초. 기존 분 단위 설정을 최초 접근 시 보존한다. */
+    var graceSec: Int
+        get() {
+            if (!sp.contains("graceSec")) {
+                val seconds = DurationPolicy.legacyGraceSeconds(sp.getInt("graceMin", 5))
+                sp.edit().putInt("graceSec", seconds).apply()
+            }
+            return sp.getInt("graceSec", 300).coerceIn(1, DurationPolicy.MAX_SECONDS)
+        }
+        set(v) {
+            require(v in 1..DurationPolicy.MAX_SECONDS)
+            sp.edit().putInt("graceSec", v).apply()
+        }
+
+    /** 오늘 한도를 넘긴 앱에 적용하는 독립된 대기 시간. */
+    var limitDelaySec: Int
+        get() = sp.getInt("limitDelaySec", DurationPolicy.DEFAULT_LIMIT_DELAY_SECONDS)
+            .coerceIn(1, DurationPolicy.MAX_SECONDS)
+        set(v) {
+            require(v in 1..DurationPolicy.MAX_SECONDS)
+            sp.edit().putInt("limitDelaySec", v).apply()
+        }
+
+    /** 서비스가 다시 시작되어도 유예를 유지하기 위해 실제 시각으로 저장한다. */
+    fun graceUntilMs(pkg: String): Long = sp.getLong("graceUntil_$pkg", 0L)
+    fun setGraceUntilMs(pkg: String, untilMs: Long) =
+        sp.edit().putLong("graceUntil_$pkg", untilMs).apply()
 
     var message: String
         get() = sp.getString("message", "정말 지금 열어야 할까요?") ?: ""

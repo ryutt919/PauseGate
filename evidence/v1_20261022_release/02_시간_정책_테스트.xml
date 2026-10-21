@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kimt9.pausegate.DurationPolicyTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-21T15:44:59" hostname="GALB4" time="0.1">
+  <properties/>
+  <testcase name="durationTextStaysReadableAcrossUnits" classname="com.kimt9.pausegate.DurationPolicyTest" time="0.079"/>
+  <testcase name="longCountdownFitsCompactButtonWithoutLosingSeconds" classname="com.kimt9.pausegate.DurationPolicyTest" time="0.013"/>
+  <testcase name="oneDayUsesLongMilliseconds" classname="com.kimt9.pausegate.DurationPolicyTest" time="0.005"/>
+  <testcase name="delayedCallbacksAndSleepDoNotExtendCountdown" classname="com.kimt9.pausegate.DurationPolicyTest" time="0.001"/>
+  <testcase name="legacyMinutesBecomeSecondsWithoutOverflow" classname="com.kimt9.pausegate.DurationPolicyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

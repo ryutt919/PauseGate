@@ -1,196 +1,82 @@
 package com.kimt9.pausegate
 
-import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.provider.Settings
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Gravity
-import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import android.widget.SeekBar
 import android.widget.Switch
-import android.widget.TextView
 
-/** 권한 상태, 전체 설정, 디자인 선택, 통계를 한 화면에 모았다. */
-class MainActivity : Activity() {
-
-    private lateinit var prefs: Prefs
+/** 실행 첫 화면. 통계 조회는 StatsDb에, 설정 저장은 Prefs에 맡긴다. */
+class MainActivity : ThemedActivity() {
     private lateinit var content: LinearLayout
-    private val dp: Float get() = resources.displayMetrics.density
-    private fun px(v: Int) = (v * dp).toInt()
+    private lateinit var scroll: ScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        prefs = Prefs(this)
         content = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(px(20), px(28), px(20), px(40))
+            setPadding(px(24), px(24), px(24), px(40))
         }
-        setContentView(ScrollView(this).apply { addView(content) })
+        scroll = ScrollView(this).apply { isFillViewport = true; addView(content) }
+        setContentView(scroll)
     }
 
-    // 설정 화면에 다녀오면 상태가 바뀌어 있으므로 매번 다시 그린다.
     override fun onResume() {
         super.onResume()
+        applyScreenTheme()
+        scroll.background = screenTheme.backgroundDrawable()
         render()
     }
 
+    private fun space(value: Int = 20) = content.addView(android.view.View(this), LinearLayout.LayoutParams(1, px(value)))
+
     private fun render() {
         content.removeAllViews()
-        title("멈칫")
-        body("앱을 열기 전에 잠깐 멈추고 숨을 고릅니다.")
-
-        section("1. 권한")
-        permissionRow("접근성 서비스 (필수)", Util.isGateEnabled(this), "켜기") {
-            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-        }
-        permissionRow("사용 정보 접근 (사용 시간 한도용)", Util.hasUsageAccess(this), "허용") {
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-        }
-        permissionRow("배터리 최적화 제외 (권장)", null, "열기") {
-            startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
-        }
-
-        section("2. 개입 대상")
-        content.addView(Switch(this).apply {
+        content.addView(screenText("멈칫", 34f, true))
+        content.addView(screenText("잠깐의 멈춤, 나를 위한 선택", 16f).apply { setPadding(0, px(8), 0, px(20)) })
+        val status = surface()
+        val gateEnabled = Util.isGateEnabled(this)
+        status.addView(Switch(this).apply {
             text = "멈칫 사용"
+            textSize = 17f
+            minHeight = px(48)
+            setTextColor(screenTheme.text)
             isChecked = prefs.enabled
-            setOnCheckedChangeListener { _, on -> prefs.enabled = on }
+            setOnCheckedChangeListener { _, enabled -> prefs.enabled = enabled; render() }
         })
-        content.addView(Button(this).apply {
-            text = "앱 선택 (${prefs.gated.size}개 선택됨)"
-            setOnClickListener { startActivity(Intent(this@MainActivity, AppPickerActivity::class.java)) }
-        })
-
-        section("3. 동작")
-        slider("기다리는 시간", prefs.delaySec, 3, 30, "초") { prefs.delaySec = it }
-        slider("그래도 열기 후 다시 묻지 않는 시간", prefs.graceMin, 1, 30, "분") { prefs.graceMin = it }
-        content.addView(Switch(this).apply {
-            text = "숨쉬기 연출 보이기"
-            isChecked = prefs.breathing
-            setOnCheckedChangeListener { _, on -> prefs.breathing = on }
-        })
-
-        section("4. 디자인")
-        label("문구")
-        content.addView(EditText(this).apply {
-            setText(prefs.message)
-            setSingleLine()
-            addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) { prefs.message = s?.toString().orEmpty() }
-                override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-                override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            })
-        })
-        label("색 조합")
-        themeChips()
-        content.addView(Button(this).apply {
-            text = "개입 화면 미리보기"
-            setOnClickListener { preview() }
-        })
-
-        section("5. 통계")
+        status.addView(screenText(when {
+            !prefs.enabled -> "지금은 쉬고 있어요"
+            !gateEnabled -> "접근성 서비스를 켜 주세요"
+            prefs.gated.isEmpty() -> "멈추고 싶은 앱을 선택해 주세요"
+            else -> "${prefs.gated.size}개 앱에서 잠깐 멈추는 중"
+        }, 16f).apply { setPadding(0, px(8), 0, 0) })
+        if (!gateEnabled || prefs.gated.isEmpty()) status.addView(actionButton("설정에서 준비하기", false) { settings() })
+        content.addView(status)
+        space(28)
         val db = StatsDb.get(this)
         val today = StatsDb.today()
-        val t = db.dayStats(today, today)[today]
-        val all = db.dayStats(StatsDb.FIRST, StatsDb.LAST).values
-        body("오늘 개입 ${t?.shown ?: 0}회 / 참음 ${t?.resisted ?: 0}회 / 그래도 열기 ${t?.opened ?: 0}회")
-        body("누적 개입 ${all.sumOf { it.shown }}회 / 참음 ${all.sumOf { it.resisted }}회 / 그래도 열기 ${all.sumOf { it.opened }}회")
-        content.addView(Button(this).apply {
-            text = "통계 자세히 보기 (앱별, 달력)"
-            setOnClickListener { startActivity(Intent(this@MainActivity, StatsActivity::class.java)) }
+        val stats = db.dayStats(today, today)[today]
+        val shown = stats?.shown ?: 0
+        val resisted = stats?.resisted ?: 0
+        content.addView(screenText("오늘의 멈춤", 21f, true))
+        space(12)
+        val summary = surface()
+        summary.addView(screenText(if (shown == 0) "아직 기록이 없어요" else "${Math.round(resisted * 100f / shown)}%", 36f, true))
+        summary.addView(screenText(if (shown == 0) "선택한 앱을 열면 통계가 쌓여요" else "오늘 앱을 열지 않고 참은 비율", 15f))
+        summary.addView(screenText("개입 ${shown}회 / 참음 ${resisted}회\n그래도 열기 ${stats?.opened ?: 0}회", 16f).apply {
+            setPadding(0, px(16), 0, px(12))
+            setLineSpacing(px(4).toFloat(), 1f)
+        })
+        summary.addView(actionButton("통계 보기") { startActivity(Intent(this, StatsActivity::class.java)) })
+        content.addView(summary)
+        space()
+        content.addView(actionButton("설정", false) { settings() })
+        space(12)
+        content.addView(screenText("일반 대기 ${DurationPolicy.format(prefs.delaySec)}\n일한도 초과 ${DurationPolicy.format(prefs.limitDelaySec)}\n다시 묻지 않기 ${DurationPolicy.format(prefs.graceSec)}", 14f).apply {
+            setLineSpacing(px(4).toFloat(), 1f)
+            gravity = Gravity.START
         })
     }
-
-    // ---- 작은 UI 도우미 ----
-    private fun title(s: String) = content.addView(TextView(this).apply {
-        text = s; textSize = 30f; setTypeface(typeface, Typeface.BOLD)
-    })
-
-    private fun section(s: String) = content.addView(TextView(this).apply {
-        text = s; textSize = 18f; setTypeface(typeface, Typeface.BOLD); setPadding(0, px(28), 0, px(8))
-    })
-
-    private fun body(s: String) = content.addView(TextView(this).apply {
-        text = s; textSize = 14f; setPadding(0, px(2), 0, px(2))
-    })
-
-    private fun label(s: String) = content.addView(TextView(this).apply {
-        text = s; textSize = 13f; alpha = 0.7f; setPadding(0, px(10), 0, 0)
-    })
-
-    /** ok가 null이면 상태를 알 수 없는 항목이라 버튼만 보여 준다. */
-    private fun permissionRow(name: String, ok: Boolean?, action: String, onClick: () -> Unit) {
-        val row = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            gravity = Gravity.CENTER_VERTICAL
-        }
-        val state = when (ok) { true -> "켜짐"; false -> "꺼짐"; null -> "" }
-        row.addView(
-            TextView(this).apply { text = if (state.isEmpty()) name else "$name  [$state]"; textSize = 14f },
-            LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f),
-        )
-        if (ok != true) row.addView(Button(this).apply { text = action; setOnClickListener { onClick() } })
-        content.addView(row)
-    }
-
-    private fun slider(name: String, value: Int, min: Int, max: Int, unit: String, onChange: (Int) -> Unit) {
-        val text = TextView(this).apply { textSize = 14f; setPadding(0, px(8), 0, 0) }
-        fun show(v: Int) { text.text = "$name: $v$unit" }
-        show(value)
-        content.addView(text)
-        content.addView(SeekBar(this).apply {
-            this.max = max - min
-            progress = value - min
-            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(sb: SeekBar, p: Int, fromUser: Boolean) {
-                    show(p + min)
-                    if (fromUser) onChange(p + min)
-                }
-                override fun onStartTrackingTouch(sb: SeekBar) {}
-                override fun onStopTrackingTouch(sb: SeekBar) {}
-            })
-        })
-    }
-
-    private fun themeChips() {
-        val row = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        Themes.all.forEachIndexed { i, t ->
-            row.addView(
-                TextView(this).apply {
-                    text = t.name
-                    textSize = 11f
-                    gravity = Gravity.CENTER
-                    setTextColor(t.text)
-                    background = t.backgroundDrawable().apply {
-                        cornerRadius = px(12).toFloat()
-                        setStroke(px(if (i == prefs.themeIdx) 3 else 1), t.accent)
-                    }
-                    setOnClickListener { prefs.themeIdx = i; render() }
-                },
-                LinearLayout.LayoutParams(0, px(48), 1f).apply { setMargins(px(3), px(6), px(3), px(6)) },
-            )
-        }
-        content.addView(row)
-    }
-
-    private fun preview() {
-        val dialog = Dialog(this, android.R.style.Theme_Material_NoActionBar_Fullscreen)
-        dialog.setContentView(
-            OverlayView(
-                context = this, theme = prefs.theme, appLabel = "미리보기",
-                message = prefs.message, delaySec = prefs.delaySec,
-                breathing = prefs.breathing, limitReached = false,
-                onOpen = { dialog.dismiss() }, onClose = { dialog.dismiss() },
-            ),
-        )
-        dialog.show()
-    }
+    private fun settings() = startActivity(Intent(this, SettingsActivity::class.java))
 }

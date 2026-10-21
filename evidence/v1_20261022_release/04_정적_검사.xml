@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.5.2">
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="        val first = String.format(&quot;%04d%02d01&quot;, year, month + 1)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsActivity.kt"
+            line="224"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="        val last = String.format(&quot;%04d%02d31&quot;, year, month + 1)"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsActivity.kt"
+            line="225"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        severity="Warning"
+        message="Implicitly using the default locale is a common source of bugs: Use `String.format(Locale, ...)` instead"
+        category="Correctness"
+        priority="6"
+        summary="Implied default locale in case conversion"
+        explanation="Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an explicit locale** is a common source of bugs. The reason for that is that those methods will use the current locale on the user&apos;s device, and even though the code appears to work correctly when you are developing the app, it will fail in some locales. For example, in the Turkish locale, the uppercase replacement for `i` is **not** `I`.&#xA;&#xA;If you want the methods to just perform ASCII replacement, for example to convert an enum name, call `String#toUpperCase(Locale.ROOT)` instead. If you really want to use the current locale, call `String#toUpperCase(Locale.getDefault())` instead."
+        url="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        urls="https://developer.android.com/reference/java/util/Locale.html#default_locale"
+        errorLine1="    private fun dayKey(day: Int) = String.format(&quot;%04d%02d%02d&quot;, year, month + 1, day)"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsViews.kt"
+            line="129"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;)"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\build.gradle.kts"
+            line="35"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 26. Merge all the resources in this folder into `mipmap-anydpi`."
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder.">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\res\mipmap-anydpi-v26"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields (static reference to `StatsDb` which has field `ctx` pointing to `Context`); this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="        @Volatile private var inst: StatsDb? = null"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsDb.kt"
+            line="35"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="MonochromeLauncherIcon"
+        severity="Warning"
+        message="The application adaptive icon is missing a monochrome tag"
+        category="Usability:Icons"
+        priority="6"
+        summary="Monochrome icon is not defined"
+        explanation="If `android:roundIcon` and `android:icon` are both in your manifest, you must either remove the reference to `android:roundIcon` if it is not needed; or, supply the monochrome icon in the drawable defined by the `android:roundIcon` and `android:icon` attribute.&#xA;&#xA;For example, if `android:roundIcon` and `android:icon` are both in the manifest, a launcher might choose to use `android:roundIcon` over `android:icon` to display the adaptive app icon. Therefore, your themed application iconwill not show if your monochrome attribute is not also specified in `android:roundIcon`."
+        errorLine1="&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `BreathView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor) need to find a constructor with one of the following signatures:&#xA;* `View(Context context)`&#xA;* `View(Context context, AttributeSet attrs)`&#xA;* `View(Context context, AttributeSet attrs, int defStyle)`&#xA;&#xA;If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="class BreathView("
+        errorLine2="      ~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\OverlayView.kt"
+            line="38"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `OverlayView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor) need to find a constructor with one of the following signatures:&#xA;* `View(Context context)`&#xA;* `View(Context context, AttributeSet attrs)`&#xA;* `View(Context context, AttributeSet attrs, int defStyle)`&#xA;&#xA;If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="class OverlayView("
+        errorLine2="      ~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\OverlayView.kt"
+            line="163"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `StackedBarsView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor) need to find a constructor with one of the following signatures:&#xA;* `View(Context context)`&#xA;* `View(Context context, AttributeSet attrs)`&#xA;* `View(Context context, AttributeSet attrs, int defStyle)`&#xA;&#xA;If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="class StackedBarsView("
+        errorLine2="      ~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsViews.kt"
+            line="15"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `HourBarsView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor) need to find a constructor with one of the following signatures:&#xA;* `View(Context context)`&#xA;* `View(Context context, AttributeSet attrs)`&#xA;* `View(Context context, AttributeSet attrs, int defStyle)`&#xA;&#xA;If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="class HourBarsView("
+        errorLine2="      ~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsViews.kt"
+            line="62"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `CalendarView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor) need to find a constructor with one of the following signatures:&#xA;* `View(Context context)`&#xA;* `View(Context context, AttributeSet attrs)`&#xA;* `View(Context context, AttributeSet attrs, int defStyle)`&#xA;&#xA;If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="class CalendarView("
+        errorLine2="      ~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\StatsViews.kt"
+            line="102"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        severity="Warning"
+        message="Custom view `BreathView` overrides `onTouchEvent` but not `performClick`"
+        category="Accessibility"
+        priority="6"
+        summary="Accessibility in Custom Views"
+        explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
+        errorLine1="    override fun onTouchEvent(event: android.view.MotionEvent): Boolean = false"
+        errorLine2="                 ~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\OverlayView.kt"
+            line="107"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                        text = t.name + if (index == prefs.themeIdx) &quot; ✓&quot; else &quot;&quot;"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\12_SettingsActivity.kt"
+            line="146"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="        text = &quot;${DurationPolicy.format(minimum)}부터 24시간까지 설정할 수 있어요.&quot;"
+        errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\14_DurationPicker.kt"
+            line="21"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="        text = &quot;${DurationPolicy.format(minimum)}부터 24시간까지 설정할 수 있어요.&quot;"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\14_DurationPicker.kt"
+            line="21"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                error.text = &quot;시간은 0~24, 분과 초는 0~59로 입력해 주세요.&quot;"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\14_DurationPicker.kt"
+            line="62"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                    error.text = &quot;${DurationPolicy.format(minimum)} 이상, 24시간 이하로 입력해 주세요.&quot;"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\14_DurationPicker.kt"
+            line="66"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                    error.text = &quot;${DurationPolicy.format(minimum)} 이상, 24시간 이하로 입력해 주세요.&quot;"
+        errorLine2="                                                                   ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\14_DurationPicker.kt"
+            line="66"
+            column="68"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="        countText.text = &quot;개입할 앱 ${selected.size}개 선택됨&quot;"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\Users\kimt9\AndroidProjects\PauseGate\app\src\main\java\com\kimt9\pausegate\AppPickerActivity.kt"
+            line="98"
+            column="26"/>
+    </issue>
+
+</issues>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kimt9.pausegate.PrefsTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-21T15:44:59" hostname="GALB4" time="0.036">
+  <properties/>
+  <testcase name="allSettingsSupportOneDayAndRemainIndependent" classname="com.kimt9.pausegate.PrefsTest" time="0.024"/>
+  <testcase name="rejectsDelayBelowMinimum" classname="com.kimt9.pausegate.PrefsTest" time="0.0"/>
+  <testcase name="existingDelayAndGraceArePreservedOnUpgrade" classname="com.kimt9.pausegate.PrefsTest" time="0.009"/>
+  <testcase name="rejectsZeroLimitDelay" classname="com.kimt9.pausegate.PrefsTest" time="0.0"/>
+  <testcase name="secondBasedGraceTakesPriorityOverLegacyValue" classname="com.kimt9.pausegate.PrefsTest" time="0.0"/>
+  <testcase name="rejectsGraceOverOneDay" classname="com.kimt9.pausegate.PrefsTest" time="0.001"/>
+  <testcase name="graceDeadlineSurvivesNewPrefsInstanceAndIsPerApp" classname="com.kimt9.pausegate.PrefsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
