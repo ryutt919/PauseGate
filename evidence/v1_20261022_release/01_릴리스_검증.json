@@ -28,5 +28,9 @@
     "유예는 수동 기기 시각 변경 영향",
     "접근성 서비스의 대상앱 개입 실행 미검증"
   ],
-  "ui_notes": "최초 시스템UI ANR은 Wait1회 후 해소.09 XML이 초과거부 근거이며07 XML은 초기 좌표조작 실패 화면."
+  "ui_notes": "최초 시스템UI ANR은 Wait1회 후 해소.09 XML이 초과거부 근거이며07 XML은 초기 좌표조작 실패 화면.",
+  "code_commit": "052cc19768a1409e9a686cf34fce63300854c570",
+  "release_url": "https://github.com/ryutt919/PauseGate/releases/tag/v0.5.0",
+  "remote_apk_digest_verified": true,
+  "released_at": "2026-10-22 00:57:58 KST"
 }
