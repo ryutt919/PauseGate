@@ -1,0 +1,28 @@
+{
+  "version": "v2",
+  "serial": "emulator-5554",
+  "events": [
+    {
+      "elapsed_seconds": 6.31,
+      "action": "시험 설정 적용",
+      "limit_seconds": 60,
+      "cooldown_seconds": 2,
+      "cooldown_delay_seconds": 6,
+      "ordinary_delay_seconds": 3,
+      "grace_seconds": 86400,
+      "target": "com.android.settings"
+    },
+    {
+      "elapsed_seconds": 21.56,
+      "action": "기간만료 후 실제열기 전 통계 확인",
+      "event_id": 14,
+      "outcome": "PENDING"
+    },
+    {
+      "elapsed_seconds": 22.84,
+      "action": "기간만료 경계 검증 통과",
+      "event_count": 2,
+      "reused_event_id": 14
+    }
+  ]
+}

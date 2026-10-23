@@ -1,0 +1,22 @@
+{
+  "version": "v2",
+  "serial": "emulator-5554",
+  "events": [
+    {
+      "elapsed_seconds": 10.75,
+      "action": "시험 설정 적용",
+      "limit_seconds": 60,
+      "cooldown_seconds": 120,
+      "cooldown_delay_seconds": 6,
+      "ordinary_delay_seconds": 3,
+      "grace_seconds": 86400,
+      "target": "com.android.settings"
+    },
+    {
+      "elapsed_seconds": 20.42,
+      "action": "검증 실패",
+      "error_type": "AssertionError",
+      "reason": "UI label missing: 그래도 열기"
+    }
+  ]
+}

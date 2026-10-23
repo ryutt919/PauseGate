@@ -135,7 +135,8 @@ class StatsActivity : Activity() {
     private fun appRow(app: AppStat, usageMs: Long, maxShown: Int, hasUsage: Boolean): View {
         val limit = prefs.limitMin(app.pkg)
         val limited = period == 0 && limit > 0
-        val fraction = if (limited) (usageMs / (limit * 60_000f)).coerceIn(0f, 1f) else app.shown.toFloat() / maxShown
+        val cycle = if (limited) LimitCycleRepository(this).state(app.pkg) else null
+        val fraction = if (cycle != null) (cycle.usedMs / (limit * 60_000f)).coerceIn(0f, 1f) else app.shown.toFloat() / maxShown
 
         val wrap = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -156,7 +157,11 @@ class StatsActivity : Activity() {
         mid.addView(bar(fraction), LinearLayout.LayoutParams(-1, px(5)).apply { topMargin = px(5); bottomMargin = px(4) })
         val sub = buildString {
             if (hasUsage) append("사용 ${fmtMs(usageMs)}")
-            if (limited) append(" / 한도 ${limit}분")
+            if (cycle != null) {
+                if (isNotEmpty()) append("\n")
+                append("이번 주기 ${DurationPolicy.format((cycle.usedMs / 1000L).toInt())} / ${limit}분")
+                if (cycle.isCoolingDown(System.currentTimeMillis())) append(" / 쿨타임 중")
+            }
         }
         if (sub.isNotEmpty()) mid.addView(text(sub, 12f, alpha = 0xAA, gravity = Gravity.START))
         top.addView(mid, LinearLayout.LayoutParams(0, -2, 1f).apply { leftMargin = px(12); rightMargin = px(12) })

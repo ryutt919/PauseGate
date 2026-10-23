@@ -1,0 +1,72 @@
+{
+  "version": "v2",
+  "app_version": "0.6.0",
+  "version_code": 7,
+  "created_at": "2026-10-24 00:23:49 KST",
+  "model": "gpt-6",
+  "requirements": "ryutt 아래이전,You sure? 이름,평소/쿨타임중대기와기간분리,기간후한도갱신및테스트릴리스",
+  "baseline_commit": "e0b2199ffc07019e2766084d91a6fb07d34f31de",
+  "project_path": "C:\\Users\\kimt9\\OneDrive\\Desktop\\Gal4_PM\\ryutt\\YouSure",
+  "old_project_path": "C:/Users/kimt9/AndroidProjects/PauseGate",
+  "old_directory_empty": true,
+  "apk_sha256": "590d5e86a9179ed5972a4c1a445e77755be981c76ded08a960e62d9d62ee422f",
+  "apk_bytes": 1619424,
+  "artifact": "build/releases/v2_20261024_release/01_YouSure-0.6.0.apk",
+  "test_suites": [
+    {
+      "name": "com.kimt9.pausegate.DurationPolicyTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "com.kimt9.pausegate.LimitCycleTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "com.kimt9.pausegate.PrefsTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "unit_tests": 25,
+  "lint": {
+    "errors": 0,
+    "warnings": 22
+  },
+  "gradle": "testDebugUnitTest assembleDebug assembleRelease lintRelease BUILD SUCCESSFUL in 28s",
+  "runtime": {
+    "run_id": "v2_20261024_002654",
+    "seconds": 267.92,
+    "cycles": 2,
+    "success": true,
+    "log": "evidence/v2_20261024_runtime/v2_20261024_002654/00_runtime_log.json"
+  },
+  "limits": [
+    "실기기 미검증",
+    "서비스 중단 중사용량 미적립",
+    "저장직전1초미만누락가능",
+    "수동기기시각변경영향",
+    "최대24시간실시간경과미실시"
+  ],
+  "certificate_sha256": "ecb4ca12e3d212ef619d34533510fa94449fd7a532d83873333f510a4ab347c3",
+  "boundary_test": {
+    "success": true,
+    "seconds": 22.84,
+    "reused_event_id": 14,
+    "event_count": 2,
+    "log": "evidence/v2_20261024_runtime/v2_20261024_003142/00_runtime_log.json"
+  },
+  "release_ui": {
+    "success": true,
+    "saved_cooldown_seconds": 180,
+    "restart_persisted": true,
+    "home_png": "evidence/v2_20261024_runtime/v2_20261024_003235_release_ui/06_재실행기간3분.png",
+    "settings_png": "evidence/v2_20261024_runtime/v2_20261024_003235_release_ui/05_기간3분저장.png",
+    "debuggable": false
+  },
+  "old_directory_retained_due_to_external_handle": true
+}

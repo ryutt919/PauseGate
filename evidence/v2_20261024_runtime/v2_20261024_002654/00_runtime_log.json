@@ -1,0 +1,107 @@
+{
+  "version": "v2",
+  "serial": "emulator-5554",
+  "events": [
+    {
+      "elapsed_seconds": 5.6,
+      "action": "시험 설정 적용",
+      "limit_seconds": 60,
+      "cooldown_seconds": 120,
+      "cooldown_delay_seconds": 6,
+      "ordinary_delay_seconds": 3,
+      "grace_seconds": 86400,
+      "target": "com.android.settings"
+    },
+    {
+      "elapsed_seconds": 18.13,
+      "action": "첫 유예 유지 및 이후 재진입 시험 준비",
+      "initial_grace_hours": 24,
+      "subsequent_grace_seconds": 1
+    },
+    {
+      "elapsed_seconds": 18.13,
+      "action": "첫 주기 실사용 시작"
+    },
+    {
+      "elapsed_seconds": 80.21,
+      "action": "쿨타임 조기 열기 거부 확인",
+      "checkpoint": "첫쿨타임개입",
+      "event_id": 9
+    },
+    {
+      "elapsed_seconds": 87.81,
+      "action": "쿨타임 대기 후 열기 확인",
+      "checkpoint": "첫쿨타임개입",
+      "event_id": 9,
+      "waited_ms": 9319,
+      "outcome": "OPENED",
+      "used_ms": 60000,
+      "until_ms": 1792769411707
+    },
+    {
+      "elapsed_seconds": 90.84,
+      "action": "쿨타임 조기 열기 거부 확인",
+      "checkpoint": "쿨타임중재진입",
+      "event_id": 10
+    },
+    {
+      "elapsed_seconds": 98.4,
+      "action": "쿨타임 대기 후 열기 확인",
+      "checkpoint": "쿨타임중재진입",
+      "event_id": 10,
+      "waited_ms": 7478,
+      "outcome": "OPENED",
+      "used_ms": 60000,
+      "until_ms": 1792769411707
+    },
+    {
+      "elapsed_seconds": 104.36,
+      "action": "쿨타임 조기 열기 거부 확인",
+      "checkpoint": "재시작쿨타임",
+      "event_id": 11
+    },
+    {
+      "elapsed_seconds": 111.97,
+      "action": "쿨타임 대기 후 열기 확인",
+      "checkpoint": "재시작쿨타임",
+      "event_id": 11,
+      "waited_ms": 7876,
+      "outcome": "OPENED",
+      "used_ms": 60000,
+      "until_ms": 1792769411707
+    },
+    {
+      "elapsed_seconds": 112.09,
+      "action": "쿨타임 만료 대기",
+      "used_ms": 60000,
+      "until_ms": 1792769411707
+    },
+    {
+      "elapsed_seconds": 198.62,
+      "action": "두 번째 실사용 주기 시작",
+      "used_ms": 0,
+      "until_ms": 0
+    },
+    {
+      "elapsed_seconds": 260.33,
+      "action": "쿨타임 조기 열기 거부 확인",
+      "checkpoint": "두번째쿨타임개입",
+      "event_id": 12
+    },
+    {
+      "elapsed_seconds": 267.92,
+      "action": "쿨타임 대기 후 열기 확인",
+      "checkpoint": "두번째쿨타임개입",
+      "event_id": 12,
+      "waited_ms": 8871,
+      "outcome": "OPENED",
+      "used_ms": 60000,
+      "until_ms": 1792769592305
+    },
+    {
+      "elapsed_seconds": 267.92,
+      "action": "검증 통과",
+      "cycles": 2
+    }
+  ]
+}

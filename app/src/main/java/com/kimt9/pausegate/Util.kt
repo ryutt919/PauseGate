@@ -2,6 +2,7 @@ package com.kimt9.pausegate
 
 import android.app.AppOpsManager
 import android.app.usage.UsageStatsManager
+import android.app.usage.UsageEvents
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -36,6 +37,31 @@ object Util {
         }.timeInMillis
         val usm = ctx.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         return usm.queryAndAggregateUsageStats(start, System.currentTimeMillis())[pkg]?.totalTimeInForeground ?: 0L
+    }
+
+    /** 서비스 재연결 시 현재 앱을 추정한다. 조회 불가/열린 구간 없음은 사용량 0이라는 뜻이 아니다. */
+    fun foregroundPackage(ctx: Context): String? {
+        if (!hasUsageAccess(ctx)) return null
+        val now = System.currentTimeMillis()
+        val usm = ctx.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        val events = usm.queryEvents(now - 86_400_000L, now) ?: return null
+        val event = UsageEvents.Event()
+        var pkg: String? = null
+        var activity: String? = null
+        while (events.getNextEvent(event)) {
+            when (event.eventType) {
+                UsageEvents.Event.ACTIVITY_RESUMED -> {
+                    pkg = event.packageName
+                    activity = event.className
+                }
+                UsageEvents.Event.ACTIVITY_PAUSED, UsageEvents.Event.ACTIVITY_STOPPED -> {
+                    if (event.packageName == pkg && (event.className == activity || event.className == null)) pkg = null
+                }
+                UsageEvents.Event.SCREEN_NON_INTERACTIVE, UsageEvents.Event.KEYGUARD_SHOWN,
+                UsageEvents.Event.DEVICE_SHUTDOWN, UsageEvents.Event.DEVICE_STARTUP -> pkg = null
+            }
+        }
+        return pkg
     }
 
     /** 홈 화면에 아이콘이 있는 모든 앱(자기 자신 제외), 이름순 */

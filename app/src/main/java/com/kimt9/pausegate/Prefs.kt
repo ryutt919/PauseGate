@@ -66,13 +66,21 @@ class Prefs internal constructor(private val sp: SharedPreferences) {
             sp.edit().putInt("graceSec", v).apply()
         }
 
-    /** 오늘 한도를 넘긴 앱에 적용하는 독립된 대기 시간. */
+    /** 쿨타임 기간 중 개입 화면에서 기다리는 초. 기존 설정 키를 보존한다. */
     var limitDelaySec: Int
         get() = sp.getInt("limitDelaySec", DurationPolicy.DEFAULT_LIMIT_DELAY_SECONDS)
             .coerceIn(1, DurationPolicy.MAX_SECONDS)
         set(v) {
             require(v in 1..DurationPolicy.MAX_SECONDS)
             sp.edit().putInt("limitDelaySec", v).apply()
+        }
+
+    /** 한도 소진 후 다른 대기 시간을 적용하는 기간. */
+    var cooldownSec: Int
+        get() = sp.getInt("cooldownSec", 1_800).coerceIn(1, DurationPolicy.MAX_SECONDS)
+        set(v) {
+            require(v in 1..DurationPolicy.MAX_SECONDS)
+            sp.edit().putInt("cooldownSec", v).apply()
         }
 
     /** 서비스가 다시 시작되어도 유예를 유지하기 위해 실제 시각으로 저장한다. */
@@ -94,7 +102,13 @@ class Prefs internal constructor(private val sp: SharedPreferences) {
 
     val theme: Theme get() = Themes.all[themeIdx]
 
-    /** 앱별 하루 사용 한도(분). 0이면 한도 없음. */
+    /** 앱별 주기당 사용 한도(분). 0이면 한도 없음. */
     fun limitMin(pkg: String): Int = sp.getInt("limit_$pkg", 0)
-    fun setLimitMin(pkg: String, min: Int) = sp.edit().putInt("limit_$pkg", min).apply()
+    fun setLimitMin(pkg: String, min: Int) {
+        require(min >= 0)
+        if (min != limitMin(pkg)) {
+            sp.edit().putInt("limit_$pkg", min)
+                .remove("cycle_used_$pkg").remove("cycle_until_$pkg").apply()
+        }
+    }
 }

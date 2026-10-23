@@ -17,7 +17,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 
-/** 설치된 모든 앱 중에서 개입 대상을 고르고, 앱마다 하루 사용 한도를 정하는 화면 */
+/** 설치된 모든 앱 중에서 개입 대상을 고르고, 앱마다 쿨타임 주기의 이용 한도를 정하는 화면 */
 class AppPickerActivity : Activity() {
 
     private lateinit var prefs: Prefs
@@ -99,10 +99,10 @@ class AppPickerActivity : Activity() {
     }
 
     private fun askLimit(app: AppInfo) {
-        val opts = intArrayOf(0, 15, 30, 60, 90, 120, 180)
-        val names = opts.map { if (it == 0) "한도 없음" else "하루 ${it}분" }.toTypedArray()
+        val opts = intArrayOf(0, 1, 15, 30, 60, 90, 120, 180)
+        val names = opts.map { if (it == 0) "한도 없음" else "주기당 ${it}분" }.toTypedArray()
         AlertDialog.Builder(this)
-            .setTitle("${app.label} 하루 사용 한도")
+            .setTitle("${app.label} 이용 한도")
             .setItems(names) { _, i ->
                 prefs.setLimitMin(app.pkg, opts[i])
                 adapter.notifyDataSetChanged()
@@ -139,7 +139,11 @@ class AppPickerActivity : Activity() {
             }, LinearLayout.LayoutParams(0, -2, 1f))
             val limit = prefs.limitMin(app.pkg)
             row.addView(TextView(this@AppPickerActivity).apply {
-                text = if (limit == 0) "한도 없음" else "${limit}분/일"
+                text = if (limit == 0) "한도 없음" else {
+                    val now = System.currentTimeMillis()
+                    val cycle = LimitCycleRepository(this@AppPickerActivity).state(app.pkg, now)
+                    if (cycle.isCoolingDown(now)) "${limit}분/주기\n쿨타임 중" else "${limit}분/주기"
+                }
                 textSize = 13f
                 setTextColor(0xFF3F7D6E.toInt())
                 setPadding(px(8), px(8), px(8), px(8))

@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "PauseGate"
+rootProject.name = "YouSure"
 include(":app")

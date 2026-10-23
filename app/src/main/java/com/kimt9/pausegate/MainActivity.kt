@@ -2,6 +2,9 @@ package com.kimt9.pausegate
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.TextView
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -11,6 +14,15 @@ import android.widget.Switch
 class MainActivity : ThemedActivity() {
     private lateinit var content: LinearLayout
     private lateinit var scroll: ScrollView
+    private var cycleText: TextView? = null
+    private var cycleNames: Map<String, String> = emptyMap()
+    private val handler = Handler(Looper.getMainLooper())
+    private val refreshCycles = object : Runnable {
+        override fun run() {
+            updateCycles()
+            handler.postDelayed(this, 1000L)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,18 +39,40 @@ class MainActivity : ThemedActivity() {
         applyScreenTheme()
         scroll.background = screenTheme.backgroundDrawable()
         render()
+        handler.removeCallbacks(refreshCycles)
+        handler.post(refreshCycles)
+    }
+
+    override fun onPause() {
+        handler.removeCallbacks(refreshCycles)
+        super.onPause()
+    }
+
+    private fun updateCycles() {
+        val now = System.currentTimeMillis()
+        val repository = LimitCycleRepository(this)
+        cycleText?.text = cycleNames.entries.joinToString("\n\n") { (pkg, label) ->
+            val state = repository.state(pkg, now)
+            if (state.isCoolingDown(now)) {
+                val remaining = ((state.cooldownUntilMs - now + 999L) / 1000L).toInt()
+                "$label / 쿨타임 ${DurationPolicy.format(remaining)} 남음"
+            } else {
+                val left = (prefs.limitMin(pkg) * 60_000L - state.usedMs).coerceAtLeast(0L)
+                "$label / 이용 가능 ${DurationPolicy.format(((left + 999L) / 1000L).toInt())}"
+            }
+        }
     }
 
     private fun space(value: Int = 20) = content.addView(android.view.View(this), LinearLayout.LayoutParams(1, px(value)))
 
     private fun render() {
         content.removeAllViews()
-        content.addView(screenText("멈칫", 34f, true))
+        content.addView(screenText(getString(R.string.app_name), 34f, true))
         content.addView(screenText("잠깐의 멈춤, 나를 위한 선택", 16f).apply { setPadding(0, px(8), 0, px(20)) })
         val status = surface()
         val gateEnabled = Util.isGateEnabled(this)
         status.addView(Switch(this).apply {
-            text = "멈칫 사용"
+            text = "You sure? 사용"
             textSize = 17f
             minHeight = px(48)
             setTextColor(screenTheme.text)
@@ -53,6 +87,15 @@ class MainActivity : ThemedActivity() {
         }, 16f).apply { setPadding(0, px(8), 0, 0) })
         if (!gateEnabled || prefs.gated.isEmpty()) status.addView(actionButton("설정에서 준비하기", false) { settings() })
         content.addView(status)
+        cycleNames = prefs.gated.filter { prefs.limitMin(it) > 0 }.associateWith { Util.labelOf(this, it) }
+        cycleText = null
+        if (cycleNames.isNotEmpty()) {
+            space(24)
+            content.addView(screenText("이용 한도", 21f, true))
+            cycleText = screenText("", 16f).apply { setPadding(0, px(12), 0, 0) }
+            content.addView(cycleText)
+            updateCycles()
+        }
         space(28)
         val db = StatsDb.get(this)
         val today = StatsDb.today()
@@ -73,7 +116,7 @@ class MainActivity : ThemedActivity() {
         space()
         content.addView(actionButton("설정", false) { settings() })
         space(12)
-        content.addView(screenText("일반 대기 ${DurationPolicy.format(prefs.delaySec)}\n일한도 초과 ${DurationPolicy.format(prefs.limitDelaySec)}\n다시 묻지 않기 ${DurationPolicy.format(prefs.graceSec)}", 14f).apply {
+        content.addView(screenText("일반 대기 ${DurationPolicy.format(prefs.delaySec)}\n쿨타임 대기 ${DurationPolicy.format(prefs.limitDelaySec)}\n쿨타임 기간 ${DurationPolicy.format(prefs.cooldownSec)}\n다시 묻지 않기 ${DurationPolicy.format(prefs.graceSec)}", 14f).apply {
             setLineSpacing(px(4).toFloat(), 1f)
             gravity = Gravity.START
         })

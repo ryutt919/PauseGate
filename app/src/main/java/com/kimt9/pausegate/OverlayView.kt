@@ -158,7 +158,7 @@ class BreathView(
 /**
  * 개입 화면 전체. 접근성 오버레이 창에 그대로 붙인다.
  * 맨 위에 닫기와 열기 버튼, 가운데에 문구, 그 아래에 안내 문구 자리를 둔다.
- * @param limitReached 오늘 사용 한도를 넘긴 앱이면 true. 독립된 한도 초과 대기를 적용한다.
+ * @param limitReached 쿨타임 중이면 true. 별도의 쿨타임 대기 시간을 적용한다.
  */
 class OverlayView(
     context: Context,
@@ -175,7 +175,7 @@ class OverlayView(
 
     private val density = resources.displayMetrics.density
     private fun dp(v: Int) = (v * density).toInt()
-    private val labelText = if (limitReached) "$appLabel, 오늘 한도를 넘었어요" else appLabel
+    private val labelText = if (limitReached) "$appLabel, 쿨타임 중이에요" else appLabel
     private val waitSeconds = if (limitReached) limitDelaySec else delaySec
     private var deadlineMs = 0L
     private var remaining = waitSeconds

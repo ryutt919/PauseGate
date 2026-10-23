@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kimt9.pausegate.LimitCycleTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-10-23T15:22:13" hostname="GALB4" time="0.051">
+  <properties/>
+  <testcase name="freshQuotaCanBeExhaustedRepeatedly" classname="com.kimt9.pausegate.LimitCycleTest" time="0.003"/>
+  <testcase name="changingWaitDoesNotExtendCurrentCooldownPeriod" classname="com.kimt9.pausegate.LimitCycleTest" time="0.039"/>
+  <testcase name="changingQuotaAlsoClearsExistingCooldown" classname="com.kimt9.pausegate.LimitCycleTest" time="0.001"/>
+  <testcase name="cooldownPeriodAndWaitHaveIndependentDefaultsAndSavedValues" classname="com.kimt9.pausegate.LimitCycleTest" time="0.0"/>
+  <testcase name="fullDayCooldownUsesLongMilliseconds" classname="com.kimt9.pausegate.LimitCycleTest" time="0.001"/>
+  <testcase name="cooldownIgnoresUsageAndExpiresWhileAppIsClosed" classname="com.kimt9.pausegate.LimitCycleTest" time="0.0"/>
+  <testcase name="usageAndCooldownSurviveRepositoryRecreationAndStayPerApp" classname="com.kimt9.pausegate.LimitCycleTest" time="0.0"/>
+  <testcase name="changedQuotaStartsNewCycleButSameValuePreservesCurrentCycle" classname="com.kimt9.pausegate.LimitCycleTest" time="0.001"/>
+  <testcase name="repositoryUsesSameCooldownBoundsAsSettings" classname="com.kimt9.pausegate.LimitCycleTest" time="0.0"/>
+  <testcase name="ordinaryGraceCannotChangeCycleState" classname="com.kimt9.pausegate.LimitCycleTest" time="0.003"/>
+  <testcase name="quotaStartsCooldownPeriodAtExactThreshold" classname="com.kimt9.pausegate.LimitCycleTest" time="0.001"/>
+  <testcase name="midnightDoesNotResetPartialQuota" classname="com.kimt9.pausegate.LimitCycleTest" time="0.0"/>
+  <testcase name="noLimitDoesNotAccumulateOrBlock" classname="com.kimt9.pausegate.LimitCycleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

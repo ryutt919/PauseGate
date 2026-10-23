@@ -44,7 +44,7 @@ class SettingsActivity : ThemedActivity() {
         permissionRow("접근성 서비스 (필수)", Util.isGateEnabled(this), "켜기") {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
-        permissionRow("사용 정보 접근 (사용 시간 한도용)", Util.hasUsageAccess(this), "허용") {
+        permissionRow("사용 정보 접근 (사용 통계와 재연결용)", Util.hasUsageAccess(this), "허용") {
             startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
         }
         permissionRow("배터리 최적화 제외 (권장)", null, "열기") {
@@ -54,7 +54,7 @@ class SettingsActivity : ThemedActivity() {
         section("2. 개입 대상")
         content.addView(Switch(this).apply {
             setTextColor(screenTheme.text)
-            text = "멈칫 사용"
+            text = "You sure? 사용"
             isChecked = prefs.enabled
             setOnCheckedChangeListener { _, on -> prefs.enabled = on }
         })
@@ -63,9 +63,10 @@ class SettingsActivity : ThemedActivity() {
         })
 
         section("3. 동작")
-        durationRow("기다리는 시간", prefs.delaySec, 3) { prefs.delaySec = it }
-        durationRow("일한도 초과 후 기다리는 시간", prefs.limitDelaySec, 1) { prefs.limitDelaySec = it }
-        body("앱별 하루 한도를 넘으면 위 시간이 일반 대기 시간을 대신해요.")
+        durationRow("평소 기다리는 시간", prefs.delaySec, 3) { prefs.delaySec = it }
+        durationRow("쿨타임 동안 기다리는 시간", prefs.limitDelaySec, 1) { prefs.limitDelaySec = it }
+        durationRow("한도 소진 후 쿨타임 기간", prefs.cooldownSec, 1) { prefs.cooldownSec = it }
+        body("쿨타임 중에도 위 대기 시간이 지나면 앱을 열 수 있어요. 쿨타임 기간이 끝나면 이용 한도가 다시 주어져요.")
         durationRow("그래도 열기 후 다시 묻지 않는 시간", prefs.graceSec, 1) { prefs.graceSec = it }
         content.addView(Switch(this).apply {
             setTextColor(screenTheme.text)
