@@ -68,5 +68,16 @@
     "settings_png": "evidence/v2_20261024_runtime/v2_20261024_003235_release_ui/05_기간3분저장.png",
     "debuggable": false
   },
-  "old_directory_retained_due_to_external_handle": true
+  "old_directory_retained_due_to_external_handle": true,
+  "updated_at": "2026-10-24 00:42:56 KST",
+  "code_commit": "a8c540294ff3f5707db9c58e834abb65259c5b69",
+  "release_url": "https://github.com/ryutt919/PauseGate/releases/tag/v0.6.0",
+  "released_at": "2026-10-23T15:41:35Z",
+  "remote_digest_verified": true,
+  "remote_checksum_digest_verified": true,
+  "latest_verified": true,
+  "tags": [
+    "v0.6.0",
+    "v2"
+  ]
 }
