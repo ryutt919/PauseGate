@@ -142,7 +142,7 @@ class GateService : AccessibilityService() {
         val cooldown = state.isCoolingDown(System.currentTimeMillis())
         if (!cooldown && pkg == lastClosePkg && SystemClock.uptimeMillis() - lastCloseAt < 1500) return
         if (System.currentTimeMillis() < prefs.graceUntilMs(pkg)) return
-        showOverlay(pkg, cooldown)
+        showOverlay(pkg, cooldown, cooldownUntilMs = state.cooldownUntilMs)
     }
 
     private fun isTransient(pkg: String): Boolean {
@@ -166,13 +166,15 @@ class GateService : AccessibilityService() {
         performGlobalAction(GLOBAL_ACTION_HOME)
     }
 
-    private fun showOverlay(pkg: String, cooldown: Boolean, eventToReuse: Long? = null) {
+    /** cooldownUntilMs는 쿨타임 여부를 판정한 같은 상태에서 읽은 값을 받아 판정과 표시를 맞춘다. */
+    private fun showOverlay(pkg: String, cooldown: Boolean, eventToReuse: Long? = null, cooldownUntilMs: Long = 0L) {
         val usedMs = Util.usedTodayMs(this, pkg)
         if (usedMs > 0) stats.recordUsage(StatsDb.today(), pkg, usedMs)
         val view = OverlayView(
             context = this, theme = prefs.theme, appLabel = Util.labelOf(this, pkg),
             message = prefs.message, delaySec = prefs.delaySec, breathing = prefs.breathing,
             limitReached = cooldown, limitDelaySec = prefs.limitDelaySec,
+            cooldownUntilMs = cooldownUntilMs,
             onOpen = {
                 finishEvent("OPENED")
                 prefs.setGraceUntilMs(pkg, System.currentTimeMillis() + DurationPolicy.millis(prefs.graceSec))

@@ -54,7 +54,7 @@ class MainActivity : ThemedActivity() {
         cycleText?.text = cycleNames.entries.joinToString("\n\n") { (pkg, label) ->
             val state = repository.state(pkg, now)
             if (state.isCoolingDown(now)) {
-                val remaining = ((state.cooldownUntilMs - now + 999L) / 1000L).toInt()
+                val remaining = DurationPolicy.cooldownRemainingSeconds(state.cooldownUntilMs, now)
                 "$label / 쿨타임 ${DurationPolicy.format(remaining)} 남음"
             } else {
                 val left = (prefs.limitMin(pkg) * 60_000L - state.usedMs).coerceAtLeast(0L)

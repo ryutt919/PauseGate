@@ -15,6 +15,13 @@ object DurationPolicy {
     fun remainingSeconds(deadlineMs: Long, nowMs: Long): Int =
         ((deadlineMs - nowMs).coerceAtLeast(0L).plus(999L) / 1_000L).toInt()
 
+    /** 쿨타임 만료 시각(벽시계 ms)까지 남은 초. 올림하며 만료 후에는 0이다. */
+    fun cooldownRemainingSeconds(cooldownUntilMs: Long, nowMs: Long): Int =
+        remainingSeconds(cooldownUntilMs, nowMs)
+
+    /** 쿨타임 남은 시간 문구. 한 시간 이상은 HH:MM:SS, 미만은 "N분 M초"로 표시한다. */
+    fun cooldownLabel(seconds: Int): String = "쿨타임 ${formatCountdown(seconds)} 남음"
+
     /** 작은 버튼에서는 한 시간 이상을 HH:MM:SS로 표시한다. */
     fun formatCountdown(seconds: Int): String =
         if (seconds >= 3600) {

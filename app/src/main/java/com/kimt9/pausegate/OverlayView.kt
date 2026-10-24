@@ -159,6 +159,7 @@ class BreathView(
  * 개입 화면 전체. 접근성 오버레이 창에 그대로 붙인다.
  * 맨 위에 닫기와 열기 버튼, 가운데에 문구, 그 아래에 안내 문구 자리를 둔다.
  * @param limitReached 쿨타임 중이면 true. 별도의 쿨타임 대기 시간을 적용한다.
+ * @param cooldownUntilMs 쿨타임 만료 시각(벽시계 ms). 쿨타임 중이면 남은 시간을 매초 갱신해 보여준다.
  */
 class OverlayView(
     context: Context,
@@ -169,6 +170,7 @@ class OverlayView(
     private val breathing: Boolean,
     limitReached: Boolean,
     limitDelaySec: Int = DurationPolicy.DEFAULT_LIMIT_DELAY_SECONDS,
+    private val cooldownUntilMs: Long = 0L,
     private val onOpen: () -> Unit,
     private val onClose: () -> Unit,
 ) : FrameLayout(context) {
@@ -180,6 +182,8 @@ class OverlayView(
     private var deadlineMs = 0L
     private var remaining = waitSeconds
 
+    private val showCooldown = limitReached && cooldownUntilMs > 0L
+    private var cooldownView: TextView? = null
     private var openBtn: TextView? = null
     private var landscape: Boolean? = null
     private val scroll = ScrollView(context).apply {
@@ -193,6 +197,13 @@ class OverlayView(
             remaining = DurationPolicy.remainingSeconds(deadlineMs, SystemClock.elapsedRealtime())
             refreshOpenButton()
             if (remaining > 0) postDelayed(this, 1000)
+        }
+    }
+
+    /** 열기 대기와 별개로, 벽시계 기준 쿨타임 만료 시각으로 남은 시간을 갱신한다. */
+    private val cooldownTick = object : Runnable {
+        override fun run() {
+            if (refreshCooldown() > 0) postDelayed(this, 1000)
         }
     }
 
@@ -287,6 +298,11 @@ class OverlayView(
 
         root.addView(View(context), LinearLayout.LayoutParams(0, 0, 1f))
         root.addView(label, LinearLayout.LayoutParams(-2, -2))
+        if (showCooldown) {
+            val cooldown = text("", 16f, alpha = 0.7f).apply { setPadding(0, dp(4), 0, 0) }
+            cooldownView = cooldown
+            root.addView(cooldown, LinearLayout.LayoutParams(-2, -2))
+        }
         root.addView(msg, LinearLayout.LayoutParams(-2, -2))
         root.addView(View(context), LinearLayout.LayoutParams(0, 0, 1.2f))
         if (breathing) {
@@ -301,6 +317,18 @@ class OverlayView(
 
         scroll.addView(root, LayoutParams(-1, -1))
         refreshOpenButton()
+        refreshCooldown()
+    }
+
+    /** 쿨타임 남은 시간 줄을 갱신하고 남은 초를 돌려준다. 0이 되면 줄을 숨긴다. */
+    private fun refreshCooldown(): Int {
+        val seconds = DurationPolicy.cooldownRemainingSeconds(cooldownUntilMs, System.currentTimeMillis())
+        cooldownView?.apply {
+            text = DurationPolicy.cooldownLabel(seconds)
+            contentDescription = "쿨타임 ${DurationPolicy.format(seconds)} 남음"
+            visibility = if (seconds > 0) View.VISIBLE else View.INVISIBLE
+        }
+        return seconds
     }
 
     private fun refreshOpenButton() {
@@ -319,10 +347,15 @@ class OverlayView(
         remaining = DurationPolicy.remainingSeconds(deadlineMs, SystemClock.elapsedRealtime())
         refreshOpenButton()
         if (remaining > 0) postDelayed(tick, 1000)
+        if (showCooldown) {
+            removeCallbacks(cooldownTick)
+            cooldownTick.run()
+        }
     }
 
     override fun onDetachedFromWindow() {
         removeCallbacks(tick)
+        removeCallbacks(cooldownTick)
         super.onDetachedFromWindow()
     }
 
