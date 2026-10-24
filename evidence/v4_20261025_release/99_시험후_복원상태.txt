@@ -1,0 +1,18 @@
+== 시험 후 복원 상태 2026-10-25 01:33:05
+secure enabled_accessibility_services = null
+secure accessibility_enabled = 0
+system accelerometer_rotation = 1
+system user_rotation = 0
+system font_scale = 1.0
+global stay_on_while_plugged_in = 15
+appops: GET_USAGE_STATS: allow; time=+1m9s234ms ago
+--- prefs diff vs 시험전 (빈 출력=동일)
+SAME
+--- db
+61
+com.android.settings|57
+com.google.android.contacts|2
+com.google.android.deskclock|2
+0
+    versionCode=9 minSdk=26 targetSdk=34
+    versionName=0.8.0

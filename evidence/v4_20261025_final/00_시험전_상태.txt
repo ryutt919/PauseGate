@@ -1,0 +1,10 @@
+== 시험 전 상태 2026-10-25 01:39:07 (호스트 KST)
+secure enabled_accessibility_services = null
+secure accessibility_enabled = 0
+system accelerometer_rotation = 1
+system user_rotation = 0
+system font_scale = 1.0
+global stay_on_while_plugged_in = 15
+appops: GET_USAGE_STATS: allow; time=+8m34s640ms ago
+tz: GMT  date: Sat Oct 24 16:39:09 GMT 2026
+installed:     versionCode=9 minSdk=26 targetSdk=34     versionName=0.8.0 

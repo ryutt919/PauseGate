@@ -1,0 +1,3 @@
+    versionCode=9 minSdk=26 targetSdk=34
+    versionName=0.8.0
+    lastUpdateTime=2026-10-24 16:11:42

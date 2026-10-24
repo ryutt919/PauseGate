@@ -1,0 +1,56 @@
+[
+ {
+  "file": "18_B_개입직후_1.png",
+  "tag": "B_개입직후_1",
+  "kst": "2026-10-25 01:42:01 KST",
+  "expected_remaining_s_at_capture": 118.8
+ },
+ {
+  "file": "19_B_개입직후_2.png",
+  "tag": "B_개입직후_2",
+  "kst": "2026-10-25 01:42:02 KST",
+  "expected_remaining_s_at_capture": 117.7
+ },
+ {
+  "file": "20_B_개입직후_3.png",
+  "tag": "B_개입직후_3",
+  "kst": "2026-10-25 01:42:03 KST",
+  "expected_remaining_s_at_capture": 116.7
+ },
+ {
+  "file": "21_B_대기완료후_1.png",
+  "tag": "B_대기완료후_1",
+  "kst": "2026-10-25 01:42:12 KST",
+  "expected_remaining_s_at_capture": 108.0
+ },
+ {
+  "file": "22_B_대기완료후_2.png",
+  "tag": "B_대기완료후_2",
+  "kst": "2026-10-25 01:42:13 KST",
+  "expected_remaining_s_at_capture": 107.0
+ },
+ {
+  "file": "23_B_대기완료후_3.png",
+  "tag": "B_대기완료후_3",
+  "kst": "2026-10-25 01:42:14 KST",
+  "expected_remaining_s_at_capture": 106.0
+ },
+ {
+  "file": "24_D_가로_1.png",
+  "tag": "D_가로_1",
+  "kst": "2026-10-25 01:42:19 KST",
+  "expected_remaining_s_at_capture": 101.3
+ },
+ {
+  "file": "25_D_가로_2.png",
+  "tag": "D_가로_2",
+  "kst": "2026-10-25 01:42:20 KST",
+  "expected_remaining_s_at_capture": 100.4
+ },
+ {
+  "file": "26_D_세로복귀.png",
+  "tag": "D_세로복귀",
+  "kst": "2026-10-25 01:42:24 KST",
+  "expected_remaining_s_at_capture": 95.8
+ }
+]

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <set name="gated">
+        <string>com.android.settings</string>
+    </set>
+    <int name="limit_com.android.settings" value="1" />
+    <long name="cycle_until_com.android.settings" value="0" />
+    <long name="graceUntil_com.android.settings" value="1792855923496" />
+    <boolean name="breathing" value="false" />
+    <int name="delaySec" value="3" />
+    <int name="cooldownSec" value="180" />
+    <int name="themeIdx" value="0" />
+    <int name="limitDelaySec" value="6" />
+    <long name="cycle_used_com.android.settings" value="30978" />
+    <boolean name="enabled" value="true" />
+    <int name="graceSec" value="86400" />
+</map>

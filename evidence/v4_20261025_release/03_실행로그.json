@@ -1,0 +1,519 @@
+[
+  {
+    "t": 6.2,
+    "kst": "2026-10-25 01:15:22 KST",
+    "action": "A 시작",
+    "stats": {
+      "day": "20261024",
+      "shown": 32,
+      "opened": 0,
+      "kept": 32
+    },
+    "prefs": {
+      "cooldownSec": "180",
+      "limitDelaySec": "6",
+      "enabled": "true",
+      "breathing": "true",
+      "delaySec": "3",
+      "graceSec": "5",
+      "themeIdx": "0"
+    }
+  },
+  {
+    "t": 8.9,
+    "kst": "2026-10-25 01:15:24 KST",
+    "action": "A 라운드1 개입 표시",
+    "db_stats_before_this_event": {
+      "day": "20261024",
+      "shown": 32,
+      "opened": 0,
+      "kept": 32
+    }
+  },
+  {
+    "t": 22.7,
+    "kst": "2026-10-25 01:15:38 KST",
+    "action": "A 그래도 열기 탭",
+    "db": {
+      "day": "20261024",
+      "shown": 33,
+      "opened": 1,
+      "kept": 32
+    },
+    "fg": "mCurrentFocus=Window{8e1896d u0 com.android.settings/com.android.settings.Settings}"
+  },
+  {
+    "t": 34.0,
+    "kst": "2026-10-25 01:15:50 KST",
+    "action": "A 라운드2 개입 표시",
+    "db_stats_before_this_event": {
+      "day": "20261024",
+      "shown": 33,
+      "opened": 1,
+      "kept": 32
+    }
+  },
+  {
+    "t": 44.4,
+    "kst": "2026-10-25 01:16:00 KST",
+    "action": "A 끝",
+    "stats": {
+      "day": "20261024",
+      "shown": 33,
+      "opened": 1,
+      "kept": 32
+    }
+  },
+  {
+    "t": 8.2,
+    "kst": "2026-10-25 01:17:35 KST",
+    "action": "B 설정 적용",
+    "stats": {
+      "day": "20261024",
+      "shown": 34,
+      "opened": 1,
+      "kept": 33
+    }
+  },
+  {
+    "t": 8.5,
+    "kst": "2026-10-25 01:17:35 KST",
+    "action": "B 대상 앱 실사용 시작, 쿨타임 진입 대기"
+  },
+  {
+    "t": 70.7,
+    "kst": "2026-10-25 01:18:37 KST",
+    "action": "B 쿨타임 시작 감지",
+    "used_ms": 60000,
+    "until_ms": 1792858836049,
+    "remaining_s": 119.0,
+    "stats": {
+      "day": "20261024",
+      "shown": 34,
+      "opened": 1,
+      "kept": 33
+    }
+  },
+  {
+    "t": 90.8,
+    "kst": "2026-10-25 01:18:57 KST",
+    "action": "C 가로 회전",
+    "display": "cur=2400x1080",
+    "remaining_s": 98.7
+  },
+  {
+    "t": 94.3,
+    "kst": "2026-10-25 01:19:01 KST",
+    "action": "C 세로 복귀",
+    "display": "cur=1080x2400"
+  },
+  {
+    "t": 204.3,
+    "kst": "2026-10-25 01:20:51 KST",
+    "action": "D 만료 후 상태",
+    "prefs_used_until": [
+      0,
+      0
+    ],
+    "stats": {
+      "day": "20261024",
+      "shown": 34,
+      "opened": 1,
+      "kept": 33
+    }
+  },
+  {
+    "t": 7.0,
+    "kst": "2026-10-25 01:23:18 KST",
+    "action": "설정",
+    "theme": 5,
+    "breathing": true,
+    "cooldown": true,
+    "stats": {
+      "day": "20261024",
+      "shown": 35,
+      "opened": 1,
+      "kept": 34
+    }
+  },
+  {
+    "t": 19.2,
+    "kst": "2026-10-25 01:23:30 KST",
+    "action": "usagestats D_메탈",
+    "lines": [
+      "package=com.android.settings totalTimeUsed=\"10:08\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"10:58\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:06\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:06\" lastTimeUsed=\"2026-10-24"
+    ]
+  },
+  {
+    "t": 26.5,
+    "kst": "2026-10-25 01:23:37 KST",
+    "action": "설정",
+    "theme": 4,
+    "breathing": true,
+    "cooldown": true,
+    "stats": {
+      "day": "20261024",
+      "shown": 36,
+      "opened": 1,
+      "kept": 35
+    }
+  },
+  {
+    "t": 39.1,
+    "kst": "2026-10-25 01:23:50 KST",
+    "action": "usagestats D_종이",
+    "lines": [
+      "package=com.android.settings totalTimeUsed=\"10:20\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:11\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:18\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:18\" lastTimeUsed=\"2026-10-24"
+    ]
+  },
+  {
+    "t": 46.3,
+    "kst": "2026-10-25 01:23:57 KST",
+    "action": "설정",
+    "theme": 0,
+    "breathing": true,
+    "cooldown": true,
+    "stats": {
+      "day": "20261024",
+      "shown": 37,
+      "opened": 1,
+      "kept": 36
+    }
+  },
+  {
+    "t": 60.5,
+    "kst": "2026-10-25 01:24:11 KST",
+    "action": "usagestats D_숲쿨타임숨쉬기",
+    "lines": [
+      "package=com.android.settings totalTimeUsed=\"10:33\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:23\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:31\" lastTimeUsed=\"2026-10-24",
+      "package=com.android.settings totalTimeUsed=\"11:31\" lastTimeUsed=\"2026-10-24"
+    ]
+  },
+  {
+    "t": 67.9,
+    "kst": "2026-10-25 01:24:19 KST",
+    "action": "설정",
+    "theme": 0,
+    "breathing": false,
+    "cooldown": true,
+    "stats": {
+      "day": "20261024",
+      "shown": 38,
+      "opened": 1,
+      "kept": 37
+    }
+  },
+  {
+    "t": 69.8,
+    "kst": "2026-10-25 01:24:21 KST",
+    "action": "font_scale",
+    "v": "1.3"
+  },
+  {
+    "t": 88.0,
+    "kst": "2026-10-25 01:24:39 KST",
+    "action": "E 복원",
+    "font_scale": "1.0",
+    "rot": "0"
+  },
+  {
+    "t": 6.6,
+    "kst": "2026-10-25 01:26:08 KST",
+    "action": "설정",
+    "theme": 0,
+    "breathing": false,
+    "cooldown": true,
+    "stats": {
+      "day": "20261024",
+      "shown": 39,
+      "opened": 1,
+      "kept": 38
+    }
+  },
+  {
+    "t": 8.5,
+    "kst": "2026-10-25 01:26:10 KST",
+    "action": "font_scale",
+    "v": "2.0"
+  },
+  {
+    "t": 24.8,
+    "kst": "2026-10-25 01:26:26 KST",
+    "action": "E2 복원",
+    "font_scale": "1.0",
+    "rot": "0"
+  },
+  {
+    "t": 26.3,
+    "kst": "2026-10-25 01:26:28 KST",
+    "action": "appops",
+    "v": "GET_USAGE_STATS: deny; time=+16s757ms ago"
+  },
+  {
+    "t": 31.9,
+    "kst": "2026-10-25 01:26:33 KST",
+    "action": "설정",
+    "theme": 0,
+    "breathing": false,
+    "cooldown": false,
+    "stats": {
+      "day": "20261024",
+      "shown": 40,
+      "opened": 1,
+      "kept": 39
+    }
+  },
+  {
+    "t": 42.2,
+    "kst": "2026-10-25 01:26:43 KST",
+    "action": "설정",
+    "theme": 0,
+    "breathing": false,
+    "cooldown": true,
+    "stats": {
+      "day": "20261024",
+      "shown": 41,
+      "opened": 1,
+      "kept": 40
+    }
+  },
+  {
+    "t": 47.8,
+    "kst": "2026-10-25 01:26:49 KST",
+    "action": "appops 복원",
+    "v": "GET_USAGE_STATS: allow; time=+38s233ms ago"
+  },
+  {
+    "t": 52.7,
+    "kst": "2026-10-25 01:26:54 KST",
+    "action": "설정",
+    "theme": 0,
+    "breathing": false,
+    "cooldown": false,
+    "stats": {
+      "day": "20261024",
+      "shown": 42,
+      "opened": 1,
+      "kept": 41
+    }
+  },
+  {
+    "t": 53.2,
+    "kst": "2026-10-25 01:26:54 KST",
+    "action": "f 미리보기 전",
+    "events": "56",
+    "usage_rows": "20261023:553214,20261024:716370",
+    "stats": {
+      "day": "20261024",
+      "shown": 42,
+      "opened": 1,
+      "kept": 41
+    }
+  },
+  {
+    "t": 61.9,
+    "kst": "2026-10-25 01:27:03 KST",
+    "action": "f 미리보기 버튼",
+    "bounds": "[52,2318][1028,2337]",
+    "tap": [
+      540,
+      2327
+    ]
+  },
+  {
+    "t": 66.5,
+    "kst": "2026-10-25 01:27:08 KST",
+    "action": "f 미리보기 표시 중 db",
+    "events": "56",
+    "usage_rows": "20261023:553214,20261024:716370"
+  },
+  {
+    "t": 69.1,
+    "kst": "2026-10-25 01:27:10 KST",
+    "action": "f 미리보기 후",
+    "events": "56",
+    "usage_rows": "20261023:553214,20261024:716370",
+    "stats": {
+      "day": "20261024",
+      "shown": 42,
+      "opened": 1,
+      "kept": 41
+    }
+  },
+  {
+    "t": 74.9,
+    "kst": "2026-10-25 01:27:16 KST",
+    "action": "h 앱 홈 텍스트",
+    "texts": [
+      "4:27",
+      "앱 선택 (1개 선택됨)",
+      "3. 동작",
+      "평소 기다리는 시간",
+      "3초",
+      "쿨타임 동안 기다리는 시간",
+      "6초",
+      "한도 소진 후 쿨타임 기간",
+      "20분",
+      "쿨타임 중에도 위 대기 시간이 지나면 앱을 열 수 있어요. 쿨타임 기간이 끝나면 이용 한도가 다시 주어져요.",
+      "그래도 열기 후 다시 묻지 않는 시간",
+      "5초",
+      "숨쉬기 연출 보이기",
+      "4. 디자인",
+      "문구",
+      "정말 지금 열어야 할까요?",
+      "색 조합",
+      "숲 ✓",
+      "밤바다",
+      "노을",
+      "라벤더",
+      "종이",
+      "메탈",
+      "개입 화면 미리보기"
+    ]
+  },
+  {
+    "t": 79.8,
+    "kst": "2026-10-25 01:27:21 KST",
+    "action": "h 통계 텍스트",
+    "texts": [
+      "4:27",
+      "통계",
+      "앱별",
+      "달력",
+      "오늘",
+      "7일",
+      "30일",
+      "전체",
+      "참은 비율",
+      "86%",
+      "개입 56회 / 참음 48회 / 그래도 열기 8회",
+      "앱별, 개입이 많은 순",
+      "Settings",
+      "사용 21분",
+      "56",
+      "참음 48",
+      "사용 시간은 이 앱이 기록하기 시작한 날부터(최대 최근 7일 소급) 쌓입니다."
+    ]
+  },
+  {
+    "t": 80.1,
+    "kst": "2026-10-25 01:27:21 KST",
+    "action": "h db 오늘",
+    "stats": {
+      "day": "20261024",
+      "shown": 42,
+      "opened": 1,
+      "kept": 41
+    },
+    "pending": "0"
+  },
+  {
+    "t": 7.8,
+    "kst": "2026-10-25 01:28:33 KST",
+    "action": "h 앱 홈 텍스트",
+    "texts": [
+      "4:28",
+      "You sure?",
+      "잠깐의 멈춤, 나를 위한 선택",
+      "You sure? 사용",
+      "접근성 서비스를 켜 주세요",
+      "설정에서 준비하기",
+      "오늘의 멈춤",
+      "98%",
+      "오늘 앱을 열지 않고 참은 비율",
+      "개입 42회 / 참음 41회\n그래도 열기 1회",
+      "통계 보기",
+      "설정",
+      "일반 대기 3초\n쿨타임 대기 6초\n쿨타임 기간 20분\n다시 묻지 않기 5초"
+    ],
+    "db": {
+      "day": "20261024",
+      "shown": 42,
+      "opened": 1,
+      "kept": 41
+    }
+  },
+  {
+    "t": 17.6,
+    "kst": "2026-10-25 01:28:43 KST",
+    "action": "h 통계 오늘탭 텍스트",
+    "texts": [
+      "4:28",
+      "통계",
+      "앱별",
+      "달력",
+      "오늘",
+      "7일",
+      "30일",
+      "전체",
+      "참은 비율",
+      "98%",
+      "개입 42회 / 참음 41회 / 그래도 열기 1회",
+      "앱별, 개입이 많은 순",
+      "Settings",
+      "사용 11분",
+      "42",
+      "참음 41",
+      "사용 시간은 이 앱이 기록하기 시작한 날부터(최대 최근 7일 소급) 쌓입니다."
+    ],
+    "db": {
+      "day": "20261024",
+      "shown": 42,
+      "opened": 1,
+      "kept": 41
+    },
+    "daily_usage": "20261024|com.android.settings|716370"
+  },
+  {
+    "t": 6.5,
+    "kst": "2026-10-25 01:29:28 KST",
+    "action": "설정",
+    "pkg": "com.google.android.deskclock",
+    "cooldown_ms": 0,
+    "stats": {
+      "day": "20261024",
+      "shown": 0,
+      "opened": 0,
+      "kept": 0
+    }
+  },
+  {
+    "t": 16.5,
+    "kst": "2026-10-25 01:29:38 KST",
+    "action": "I1 닫기 후",
+    "stats": {
+      "day": "20261024",
+      "shown": 1,
+      "opened": 0,
+      "kept": 1
+    },
+    "fg": "mCurrentFocus=Window{1d7e975 u0 com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity}"
+  },
+  {
+    "t": 28.5,
+    "kst": "2026-10-25 01:29:50 KST",
+    "action": "설정",
+    "pkg": "com.google.android.contacts",
+    "cooldown_ms": 40000,
+    "stats": {
+      "day": "20261024",
+      "shown": 0,
+      "opened": 0,
+      "kept": 0
+    }
+  },
+  {
+    "t": 72.0,
+    "kst": "2026-10-25 01:30:33 KST",
+    "action": "appops 복원",
+    "v": "GET_USAGE_STATS: allow; time=+54s542ms ago"
+  }
+]

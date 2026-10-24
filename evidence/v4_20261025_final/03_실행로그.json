@@ -1,0 +1,234 @@
+[
+  {
+    "t": 12.9,
+    "kst": "2026-10-25 01:39:52 KST",
+    "action": "A 시작",
+    "stats": {
+      "day": "20261024",
+      "shown": 43,
+      "opened": 1,
+      "kept": 42
+    },
+    "prefs": {
+      "enabled": "true",
+      "breathing": "false",
+      "delaySec": "3",
+      "graceSec": "5",
+      "limitDelaySec": "6",
+      "cooldownSec": "120",
+      "themeIdx": "0",
+      "limit_com.android.settings": "1",
+      "cycle_used_com.android.settings": "0",
+      "cycle_until_com.android.settings": "0",
+      "graceUntil_com.android.settings": "0"
+    }
+  },
+  {
+    "t": 16.0,
+    "kst": "2026-10-25 01:39:55 KST",
+    "action": "A 라운드1 개입 표시",
+    "db_stats_before_this_event": {
+      "day": "20261024",
+      "shown": 43,
+      "opened": 1,
+      "kept": 42
+    }
+  },
+  {
+    "t": 25.9,
+    "kst": "2026-10-25 01:40:04 KST",
+    "action": "A 그래도 열기 탭",
+    "db": {
+      "day": "20261024",
+      "shown": 44,
+      "opened": 2,
+      "kept": 42
+    },
+    "fg": "mCurrentFocus=Window{38b60b1 u0 com.android.settings/com.android.settings.Settings}"
+  },
+  {
+    "t": 33.1,
+    "kst": "2026-10-25 01:40:12 KST",
+    "action": "A 라운드2 개입 표시",
+    "db_stats_before_this_event": {
+      "day": "20261024",
+      "shown": 44,
+      "opened": 2,
+      "kept": 42
+    }
+  },
+  {
+    "t": 37.5,
+    "kst": "2026-10-25 01:40:16 KST",
+    "action": "A 끝",
+    "stats": {
+      "day": "20261024",
+      "shown": 44,
+      "opened": 2,
+      "kept": 42
+    }
+  },
+  {
+    "t": 7.9,
+    "kst": "2026-10-25 01:40:59 KST",
+    "action": "B 설정 적용",
+    "stats": {
+      "day": "20261024",
+      "shown": 45,
+      "opened": 2,
+      "kept": 43
+    }
+  },
+  {
+    "t": 8.1,
+    "kst": "2026-10-25 01:40:59 KST",
+    "action": "B 대상 앱 실사용 시작, 쿨타임 진입 대기"
+  },
+  {
+    "t": 70.0,
+    "kst": "2026-10-25 01:42:01 KST",
+    "action": "B 쿨타임 시작 감지",
+    "used_ms": 60000,
+    "until_ms": 1792860240018,
+    "remaining_s": 118.9,
+    "stats": {
+      "day": "20261024",
+      "shown": 45,
+      "opened": 2,
+      "kept": 43
+    }
+  },
+  {
+    "t": 89.6,
+    "kst": "2026-10-25 01:42:21 KST",
+    "action": "D 가로 회전",
+    "display": "cur=2400x1080",
+    "remaining_s": 99.4
+  },
+  {
+    "t": 93.1,
+    "kst": "2026-10-25 01:42:24 KST",
+    "action": "D 세로 복귀",
+    "display": "cur=1080x2400"
+  },
+  {
+    "t": 94.9,
+    "kst": "2026-10-25 01:42:26 KST",
+    "action": "B 끝",
+    "stats": {
+      "day": "20261024",
+      "shown": 46,
+      "opened": 2,
+      "kept": 44
+    }
+  },
+  {
+    "t": 8.0,
+    "kst": "2026-10-25 01:43:06 KST",
+    "action": "C 미리보기 전",
+    "events": "64",
+    "usage_rows": "20261023:553214,20261024:803866,20261024:4981,20261024:37711",
+    "stats": {
+      "day": "20261024",
+      "shown": 46,
+      "opened": 2,
+      "kept": 44
+    }
+  },
+  {
+    "t": 16.9,
+    "kst": "2026-10-25 01:43:15 KST",
+    "action": "C 미리보기 버튼",
+    "bounds": "[52,1960][1028,2096]",
+    "tap": [
+      540,
+      2028
+    ]
+  },
+  {
+    "t": 21.7,
+    "kst": "2026-10-25 01:43:20 KST",
+    "action": "C 미리보기 표시 중 db",
+    "events": "64",
+    "usage_rows": "20261023:553214,20261024:803866,20261024:4981,20261024:37711"
+  },
+  {
+    "t": 24.5,
+    "kst": "2026-10-25 01:43:22 KST",
+    "action": "C 미리보기 후",
+    "events": "64",
+    "usage_rows": "20261023:553214,20261024:803866,20261024:4981,20261024:37711",
+    "stats": {
+      "day": "20261024",
+      "shown": 46,
+      "opened": 2,
+      "kept": 44
+    }
+  },
+  {
+    "t": 31.4,
+    "kst": "2026-10-25 01:43:29 KST",
+    "action": "H 앱 홈 텍스트",
+    "texts": [
+      "4:43",
+      "You sure?",
+      "잠깐의 멈춤, 나를 위한 선택",
+      "You sure? 사용",
+      "접근성 서비스를 켜 주세요",
+      "설정에서 준비하기",
+      "오늘의 멈춤",
+      "96%",
+      "오늘 앱을 열지 않고 참은 비율",
+      "개입 50회 / 참음 48회\n그래도 열기 2회",
+      "통계 보기",
+      "설정",
+      "일반 대기 3초\n쿨타임 대기 6초\n쿨타임 기간 2분\n다시 묻지 않기 5초"
+    ],
+    "db": {
+      "day": "20261024",
+      "shown": 46,
+      "opened": 2,
+      "kept": 44
+    }
+  },
+  {
+    "t": 41.9,
+    "kst": "2026-10-25 01:43:40 KST",
+    "action": "H 통계 오늘탭 텍스트",
+    "texts": [
+      "4:43",
+      "통계",
+      "앱별",
+      "달력",
+      "오늘",
+      "7일",
+      "30일",
+      "전체",
+      "참은 비율",
+      "96%",
+      "개입 50회 / 참음 48회 / 그래도 열기 2회",
+      "앱별, 개입이 많은 순",
+      "Settings",
+      "사용 13분",
+      "46",
+      "참음 44",
+      "Contacts",
+      "사용 0분",
+      "2",
+      "참음 2",
+      "Clock",
+      "사용 0분",
+      "2",
+      "참음 2",
+      "사용 시간은 이 앱이 기록하기 시작한 날부터(최대 최근 7일 소급) 쌓입니다."
+    ],
+    "db": {
+      "day": "20261024",
+      "shown": 46,
+      "opened": 2,
+      "kept": 44
+    },
+    "daily_usage": "20261024|com.android.settings|839003\r\n20261024|com.google.android.contacts|37711\r\n20261024|com.google.android.deskclock|4981",
+    "pending": "0"
+  }
+]
