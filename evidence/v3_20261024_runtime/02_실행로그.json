@@ -1,0 +1,72 @@
+[
+  {
+    "t": 4.6,
+    "kst": "2026-10-24 16:20:22 KST",
+    "action": "시험 설정 적용",
+    "limit_min": 1,
+    "cooldown_sec": 120,
+    "cooldown_wait_sec": 6,
+    "target": "com.android.settings"
+  },
+  {
+    "t": 5.8,
+    "kst": "2026-10-24 16:20:23 KST",
+    "action": "대상 앱 실사용 시작, 쿨타임 진입 대기"
+  },
+  {
+    "t": 66.5,
+    "kst": "2026-10-24 16:21:24 KST",
+    "action": "쿨타임 시작 감지",
+    "used_ms": 60000,
+    "until_ms": 1792826602778,
+    "remaining_s": 119.03653812408447
+  },
+  {
+    "t": 87.8,
+    "kst": "2026-10-24 16:21:45 KST",
+    "action": "가로 회전",
+    "display": "cur=2400x1080"
+  },
+  {
+    "t": 91.1,
+    "kst": "2026-10-24 16:21:48 KST",
+    "action": "세로 복귀",
+    "display": "cur=1080x2400"
+  },
+  {
+    "t": 96.8,
+    "kst": "2026-10-24 16:21:54 KST",
+    "action": "c 앱 홈",
+    "lines": [
+      "Settings / 쿨타임 1분 30초 남음"
+    ],
+    "expected_remaining_s": 88.8
+  },
+  {
+    "t": 102.8,
+    "kst": "2026-10-24 16:22:00 KST",
+    "action": "c 앱 홈",
+    "lines": [
+      "Settings / 쿨타임 1분 24초 남음"
+    ],
+    "expected_remaining_s": 82.8
+  },
+  {
+    "t": 108.8,
+    "kst": "2026-10-24 16:22:06 KST",
+    "action": "c 앱 홈",
+    "lines": [
+      "Settings / 쿨타임 1분 18초 남음"
+    ],
+    "expected_remaining_s": 76.8
+  },
+  {
+    "t": 202.6,
+    "kst": "2026-10-24 16:23:40 KST",
+    "action": "d 만료 후 상태",
+    "cycle_used_cycle_until": [
+      0,
+      0
+    ]
+  }
+]

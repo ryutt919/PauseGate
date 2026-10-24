@@ -1,0 +1,42 @@
+{"t": 5.2, "kst": "2026-10-24 16:29:22 KST", "action": "시험 설정 적용", "limit_min": 1, "cooldown_sec": 120, "cooldown_wait_sec": 6, "target": "com.android.settings"}
+{"t": 6.3, "kst": "2026-10-24 16:29:23 KST", "action": "대상 앱 실사용 시작, 쿨타임 진입 대기"}
+{"t": 67.0, "kst": "2026-10-24 16:30:24 KST", "action": "쿨타임 시작 감지", "used_ms": 60000, "until_ms": 1792827142662, "remaining_s": 119.01247429847717}
+{"file": "01_a_개입직후_1.png", "tag": "a_개입직후_1", "kst": "2026-10-24 16:30:24 KST", "expected_remaining_s": 119.0}
+{"file": "02_a_개입직후_2.png", "tag": "a_개입직후_2", "kst": "2026-10-24 16:30:26 KST", "expected_remaining_s": 117.2}
+{"file": "03_a_개입직후_3.png", "tag": "a_개입직후_3", "kst": "2026-10-24 16:30:28 KST", "expected_remaining_s": 115.4}
+{"file": "04_b_대기완료후_1.png", "tag": "b_대기완료후_1", "kst": "2026-10-24 16:30:34 KST", "expected_remaining_s": 108.8}
+{"file": "05_b_대기완료후_2.png", "tag": "b_대기완료후_2", "kst": "2026-10-24 16:30:36 KST", "expected_remaining_s": 107.1}
+{"file": "06_b_대기완료후_3.png", "tag": "b_대기완료후_3", "kst": "2026-10-24 16:30:38 KST", "expected_remaining_s": 105.3}
+{"file": "07_e_가로_1.png", "tag": "e_가로_1", "kst": "2026-10-24 16:30:43 KST", "expected_remaining_s": 100.3}
+{"file": "08_e_가로_2.png", "tag": "e_가로_2", "kst": "2026-10-24 16:30:45 KST", "expected_remaining_s": 98.0}
+{"t": 88.2, "kst": "2026-10-24 16:30:45 KST", "action": "가로 회전", "display": "cur=2400x1080"}
+{"t": 91.6, "kst": "2026-10-24 16:30:48 KST", "action": "세로 복귀", "display": "cur=1080x2400"}
+{"file": "09_e_세로복귀.png", "tag": "e_세로복귀", "kst": "2026-10-24 16:30:49 KST", "expected_remaining_s": 94.3}
+{"t": 97.2, "kst": "2026-10-24 16:30:54 KST", "action": "c 앱 홈", "lines": ["Settings / 쿨타임 1분 30초 남음"], "expected_remaining_s": 88.8}
+{"t": 103.2, "kst": "2026-10-24 16:31:00 KST", "action": "c 앱 홈", "lines": ["Settings / 쿨타임 1분 24초 남음"], "expected_remaining_s": 82.8}
+{"t": 109.2, "kst": "2026-10-24 16:31:06 KST", "action": "c 앱 홈", "lines": ["Settings / 쿨타임 1분 18초 남음"], "expected_remaining_s": 76.8}
+{"file": "10_c_앱홈.png", "tag": "c_앱홈", "kst": "2026-10-24 16:31:06 KST", "expected_remaining_s": 76.8}
+{"file": "11_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:08 KST", "expected_remaining_s": 75.3}
+{"file": "12_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:13 KST", "expected_remaining_s": 69.9}
+{"file": "13_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:18 KST", "expected_remaining_s": 64.5}
+{"file": "14_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:24 KST", "expected_remaining_s": 59.1}
+{"file": "15_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:29 KST", "expected_remaining_s": 53.8}
+{"file": "16_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:35 KST", "expected_remaining_s": 48.4}
+{"file": "17_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:40 KST", "expected_remaining_s": 43.0}
+{"file": "18_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:45 KST", "expected_remaining_s": 37.6}
+{"file": "19_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:51 KST", "expected_remaining_s": 32.2}
+{"file": "20_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:31:56 KST", "expected_remaining_s": 26.8}
+{"file": "21_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:01 KST", "expected_remaining_s": 21.4}
+{"file": "22_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:07 KST", "expected_remaining_s": 16.0}
+{"file": "23_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:12 KST", "expected_remaining_s": 10.7}
+{"file": "24_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:18 KST", "expected_remaining_s": 5.3}
+{"file": "25_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:19 KST", "expected_remaining_s": 3.9}
+{"file": "26_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:20 KST", "expected_remaining_s": 2.6}
+{"file": "27_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:22 KST", "expected_remaining_s": 1.2}
+{"file": "28_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:23 KST", "expected_remaining_s": -0.2}
+{"file": "29_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:25 KST", "expected_remaining_s": -1.6}
+{"file": "30_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:26 KST", "expected_remaining_s": -3.0}
+{"file": "31_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:27 KST", "expected_remaining_s": -4.4}
+{"file": "32_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:29 KST", "expected_remaining_s": -5.8}
+{"file": "33_d_만료관측.png", "tag": "d_만료관측", "kst": "2026-10-24 16:32:30 KST", "expected_remaining_s": -7.2}
+{"t": 198.6, "kst": "2026-10-24 16:32:35 KST", "action": "d 만료 후 상태", "cycle_used_cycle_until": [0, 0]}

@@ -1,0 +1,5 @@
+secure enabled_accessibility_services=null
+secure accessibility_enabled=0
+global stay_on_while_plugged_in=15
+system accelerometer_rotation=1
+system user_rotation=0

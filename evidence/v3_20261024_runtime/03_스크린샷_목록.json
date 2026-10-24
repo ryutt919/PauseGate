@@ -1,0 +1,285 @@
+{
+  "shots": [
+    {
+      "file": "01_a_개입직후_1.png",
+      "tag": "a_개입직후_1",
+      "kst": "2026-10-24 16:21:24 KST",
+      "expected_remaining_s": 119.0
+    },
+    {
+      "file": "02_a_개입직후_2.png",
+      "tag": "a_개입직후_2",
+      "kst": "2026-10-24 16:21:26 KST",
+      "expected_remaining_s": 117.2
+    },
+    {
+      "file": "03_a_개입직후_3.png",
+      "tag": "a_개입직후_3",
+      "kst": "2026-10-24 16:21:27 KST",
+      "expected_remaining_s": 115.5
+    },
+    {
+      "file": "04_b_대기완료후_1.png",
+      "tag": "b_대기완료후_1",
+      "kst": "2026-10-24 16:21:34 KST",
+      "expected_remaining_s": 108.9
+    },
+    {
+      "file": "05_b_대기완료후_2.png",
+      "tag": "b_대기완료후_2",
+      "kst": "2026-10-24 16:21:36 KST",
+      "expected_remaining_s": 107.2
+    },
+    {
+      "file": "06_b_대기완료후_3.png",
+      "tag": "b_대기완료후_3",
+      "kst": "2026-10-24 16:21:37 KST",
+      "expected_remaining_s": 105.5
+    },
+    {
+      "file": "07_e_가로_1.png",
+      "tag": "e_가로_1",
+      "kst": "2026-10-24 16:21:43 KST",
+      "expected_remaining_s": 100.4
+    },
+    {
+      "file": "08_e_가로_2.png",
+      "tag": "e_가로_2",
+      "kst": "2026-10-24 16:21:45 KST",
+      "expected_remaining_s": 98.1
+    },
+    {
+      "file": "09_e_세로복귀.png",
+      "tag": "e_세로복귀",
+      "kst": "2026-10-24 16:21:49 KST",
+      "expected_remaining_s": 94.4
+    },
+    {
+      "file": "10_c_앱홈.png",
+      "tag": "c_앱홈",
+      "kst": "2026-10-24 16:22:06 KST",
+      "expected_remaining_s": 76.7
+    },
+    {
+      "file": "11_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:08 KST",
+      "expected_remaining_s": 75.3
+    },
+    {
+      "file": "12_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:13 KST",
+      "expected_remaining_s": 69.9
+    },
+    {
+      "file": "13_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:18 KST",
+      "expected_remaining_s": 64.5
+    },
+    {
+      "file": "14_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:24 KST",
+      "expected_remaining_s": 59.1
+    },
+    {
+      "file": "15_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:29 KST",
+      "expected_remaining_s": 53.7
+    },
+    {
+      "file": "16_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:35 KST",
+      "expected_remaining_s": 48.3
+    },
+    {
+      "file": "17_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:40 KST",
+      "expected_remaining_s": 42.9
+    },
+    {
+      "file": "18_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:45 KST",
+      "expected_remaining_s": 37.5
+    },
+    {
+      "file": "19_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:51 KST",
+      "expected_remaining_s": 32.1
+    },
+    {
+      "file": "20_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:22:56 KST",
+      "expected_remaining_s": 26.7
+    },
+    {
+      "file": "21_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:02 KST",
+      "expected_remaining_s": 21.3
+    },
+    {
+      "file": "22_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:07 KST",
+      "expected_remaining_s": 15.9
+    },
+    {
+      "file": "23_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:12 KST",
+      "expected_remaining_s": 10.5
+    },
+    {
+      "file": "24_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:18 KST",
+      "expected_remaining_s": 5.1
+    },
+    {
+      "file": "25_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:19 KST",
+      "expected_remaining_s": 3.6
+    },
+    {
+      "file": "26_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:21 KST",
+      "expected_remaining_s": 2.2
+    },
+    {
+      "file": "27_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:22 KST",
+      "expected_remaining_s": 0.8
+    },
+    {
+      "file": "28_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:24 KST",
+      "expected_remaining_s": -0.6
+    },
+    {
+      "file": "29_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:25 KST",
+      "expected_remaining_s": -2.0
+    },
+    {
+      "file": "30_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:26 KST",
+      "expected_remaining_s": -3.4
+    },
+    {
+      "file": "31_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:28 KST",
+      "expected_remaining_s": -4.8
+    },
+    {
+      "file": "32_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:29 KST",
+      "expected_remaining_s": -6.2
+    },
+    {
+      "file": "33_d_만료관측.png",
+      "tag": "d_만료관측",
+      "kst": "2026-10-24 16:23:35 KST",
+      "expected_remaining_s": -11.6
+    }
+  ],
+  "home": [
+    {
+      "kst": "2026-10-24 16:21:54 KST",
+      "dump_sec": 3.2,
+      "cooldown_lines": [
+        "Settings / 쿨타임 1분 30초 남음"
+      ],
+      "open_button": [
+        "개입 27회 / 참음 27회\n그래도 열기 0회"
+      ],
+      "texts": [
+        "7:21",
+        "You sure?",
+        "잠깐의 멈춤, 나를 위한 선택",
+        "You sure? 사용",
+        "1개 앱에서 잠깐 멈추는 중",
+        "이용 한도",
+        "Settings / 쿨타임 1분 30초 남음",
+        "오늘의 멈춤",
+        "100%",
+        "오늘 앱을 열지 않고 참은 비율",
+        "개입 27회 / 참음 27회\n그래도 열기 0회",
+        "통계 보기",
+        "설정",
+        "일반 대기 3초\n쿨타임 대기 6초\n쿨타임 기간 2분\n다시 묻지 않기 24시간"
+      ],
+      "expected_remaining_s": 88.8
+    },
+    {
+      "kst": "2026-10-24 16:22:00 KST",
+      "dump_sec": 2.9,
+      "cooldown_lines": [
+        "Settings / 쿨타임 1분 24초 남음"
+      ],
+      "open_button": [
+        "개입 27회 / 참음 27회\n그래도 열기 0회"
+      ],
+      "texts": [
+        "7:21",
+        "You sure?",
+        "잠깐의 멈춤, 나를 위한 선택",
+        "You sure? 사용",
+        "1개 앱에서 잠깐 멈추는 중",
+        "이용 한도",
+        "Settings / 쿨타임 1분 24초 남음",
+        "오늘의 멈춤",
+        "100%",
+        "오늘 앱을 열지 않고 참은 비율",
+        "개입 27회 / 참음 27회\n그래도 열기 0회",
+        "통계 보기",
+        "설정",
+        "일반 대기 3초\n쿨타임 대기 6초\n쿨타임 기간 2분\n다시 묻지 않기 24시간"
+      ],
+      "expected_remaining_s": 82.8
+    },
+    {
+      "kst": "2026-10-24 16:22:06 KST",
+      "dump_sec": 3.0,
+      "cooldown_lines": [
+        "Settings / 쿨타임 1분 18초 남음"
+      ],
+      "open_button": [
+        "개입 27회 / 참음 27회\n그래도 열기 0회"
+      ],
+      "texts": [
+        "7:22",
+        "You sure?",
+        "잠깐의 멈춤, 나를 위한 선택",
+        "You sure? 사용",
+        "1개 앱에서 잠깐 멈추는 중",
+        "이용 한도",
+        "Settings / 쿨타임 1분 18초 남음",
+        "오늘의 멈춤",
+        "100%",
+        "오늘 앱을 열지 않고 참은 비율",
+        "개입 27회 / 참음 27회\n그래도 열기 0회",
+        "통계 보기",
+        "설정",
+        "일반 대기 3초\n쿨타임 대기 6초\n쿨타임 기간 2분\n다시 묻지 않기 24시간"
+      ],
+      "expected_remaining_s": 76.8
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+[
+  {
+    "t": 4.9,
+    "kst": "2026-10-24 16:16:03 KST",
+    "action": "시험 설정 적용",
+    "limit_min": 1,
+    "cooldown_sec": 120,
+    "cooldown_wait_sec": 6,
+    "target": "com.android.settings"
+  },
+  {
+    "t": 6.2,
+    "kst": "2026-10-24 16:16:04 KST",
+    "action": "대상 앱 실사용 시작, 쿨타임 진입 대기"
+  },
+  {
+    "t": 66.8,
+    "kst": "2026-10-24 16:17:05 KST",
+    "action": "쿨타임 시작 감지",
+    "used_ms": 60000,
+    "until_ms": 1792826344302,
+    "remaining_ms": 119302
+  },
+  {
+    "t": 74.5,
+    "kst": "2026-10-24 16:17:13 KST",
+    "action": "a 관측",
+    "dump1": [],
+    "dump1_kst": "2026-10-24 16:17:07 KST",
+    "dump2": [],
+    "dump2_kst": "2026-10-24 16:17:12 KST",
+    "open_button": [],
+    "all_texts_dump1": [
+      "7:17",
+      "Settings",
+      "Search settings",
+      "Network & internet",
+      "Mobile, Wi‑Fi, hotspot",
+      "Connected devices",
+      "Bluetooth, pairing",
+      "Apps",
+      "Assistant, recent apps, default apps",
+      "Notifications",
+      "Notification history, conversations",
+      "Battery",
+      "100%",
+      "Storage",
+      "42% used - 4.66 GB free",
+      "Sound & vibration",
+      "Volume, haptics, Do Not Disturb"
+    ]
+  },
+  {
+    "t": 74.5,
+    "kst": "2026-10-24 16:17:13 KST",
+    "action": "판정 a 쿨타임 개입 화면 문구 표시와 감소",
+    "result": "실패"
+  },
+  {
+    "t": 83.3,
+    "kst": "2026-10-24 16:17:21 KST",
+    "action": "b 관측",
+    "dump1": [],
+    "dump2": [],
+    "open_button1": [],
+    "open_button2": [],
+    "dump1_kst": "2026-10-24 16:17:17 KST",
+    "dump2_kst": "2026-10-24 16:17:21 KST"
+  },
+  {
+    "t": 83.3,
+    "kst": "2026-10-24 16:17:21 KST",
+    "action": "판정 b 열기 대기 종료 후에도 줄 감소(버튼은 그래도 열기)",
+    "result": "실패"
+  },
+  {
+    "t": 93.7,
+    "kst": "2026-10-24 16:17:32 KST",
+    "action": "e 관측(가로)",
+    "display": "cur=2400x1080",
+    "dump1": [],
+    "dump2": [],
+    "open_button": []
+  },
+  {
+    "t": 93.7,
+    "kst": "2026-10-24 16:17:32 KST",
+    "action": "판정 e 가로 회전에서도 줄 표시와 감소",
+    "result": "실패"
+  },
+  {
+    "t": 97.2,
+    "kst": "2026-10-24 16:17:35 KST",
+    "action": "세로 복귀",
+    "display": "cur=1080x2400"
+  },
+  {
+    "t": 114.7,
+    "kst": [
+      "2026-10-24 16:17:41 KST",
+      "2026-10-24 16:17:47 KST",
+      "2026-10-24 16:17:53 KST"
+    ],
+    "action": "c 관측",
+    "lines": [
+      [
+        "Settings / 쿨타임 1분 25초 남음"
+      ],
+      [
+        "Settings / 쿨타임 1분 19초 남음"
+      ],
+      [
+        "Settings / 쿨타임 1분 13초 남음"
+      ]
+    ]
+  },
+  {
+    "t": 114.7,
+    "kst": "2026-10-24 16:17:53 KST",
+    "action": "판정 c 앱 홈 쿨타임 남은 시간 갱신",
+    "result": "통과"
+  },
+  {
+    "t": 118.5,
+    "kst": "2026-10-24 16:17:57 KST",
+    "action": "d 재진입 개입",
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 120.9,
+    "kst": "2026-10-24 16:17:59 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 65.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 125.2,
+    "kst": "2026-10-24 16:18:03 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 61.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 129.6,
+    "kst": "2026-10-24 16:18:08 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 57.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 133.9,
+    "kst": "2026-10-24 16:18:12 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 52.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 138.3,
+    "kst": "2026-10-24 16:18:16 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 48.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 142.7,
+    "kst": "2026-10-24 16:18:21 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 44.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 147.1,
+    "kst": "2026-10-24 16:18:25 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 39.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 151.4,
+    "kst": "2026-10-24 16:18:30 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 35.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 155.8,
+    "kst": "2026-10-24 16:18:34 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 30.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 160.2,
+    "kst": "2026-10-24 16:18:38 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 26.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 164.5,
+    "kst": "2026-10-24 16:18:43 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 22.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 168.9,
+    "kst": "2026-10-24 16:18:47 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 17.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 173.3,
+    "kst": "2026-10-24 16:18:51 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 13.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 177.7,
+    "kst": "2026-10-24 16:18:56 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 9.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 182.0,
+    "kst": "2026-10-24 16:19:00 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 4.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 186.5,
+    "kst": "2026-10-24 16:19:05 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": 0.3,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 190.9,
+    "kst": "2026-10-24 16:19:09 KST",
+    "action": "d 폴링",
+    "emu_remaining_s": -4.7,
+    "lines": [],
+    "open_button": []
+  },
+  {
+    "t": 193.9,
+    "kst": "2026-10-24 16:19:12 KST",
+    "action": "d 만료 후 상태",
+    "prefs_used_until": [
+      0,
+      0
+    ],
+    "texts": [
+      "7:19",
+      "Settings",
+      "Search settings",
+      "Network & internet",
+      "Mobile, Wi‑Fi, hotspot",
+      "Connected devices",
+      "Bluetooth, pairing",
+      "Apps",
+      "Assistant, recent apps, default apps",
+      "Notifications",
+      "Notification history, conversations",
+      "Battery",
+      "100%",
+      "Storage",
+      "42% used - 4.66 GB free",
+      "Sound & vibration",
+      "Volume, haptics, Do Not Disturb"
+    ],
+    "open_button": []
+  },
+  {
+    "t": 193.9,
+    "kst": "2026-10-24 16:19:12 KST",
+    "action": "판정 d 만료 후 일반 모드 전환과 줄 사라짐",
+    "result": "실패"
+  }
+]
