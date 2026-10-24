@@ -174,9 +174,11 @@ class SettingsActivity : ThemedActivity() {
         val dialog = Dialog(this, android.R.style.Theme_Material_NoActionBar_Fullscreen)
         dialog.setContentView(
             OverlayView(
-                context = this, theme = prefs.theme, appLabel = "미리보기",
+                context = this, theme = prefs.theme, appLabel = "예시 앱",
                 message = prefs.message, delaySec = prefs.delaySec, limitDelaySec = prefs.limitDelaySec,
                 breathing = prefs.breathing, limitReached = false,
+                // 크기와 위치 확인용 예시 값. 통계 저장소에는 아무것도 쓰지 않는다.
+                info = OverlayInfo(usedTodayMs = 72L * 60_000L, shown = 5, kept = 3),
                 onOpen = { dialog.dismiss() }, onClose = { dialog.dismiss() },
             ),
         )

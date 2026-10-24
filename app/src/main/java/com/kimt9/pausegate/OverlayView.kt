@@ -157,20 +157,22 @@ class BreathView(
 
 /**
  * 개입 화면 전체. 접근성 오버레이 창에 그대로 붙인다.
- * 맨 위에 닫기와 열기 버튼, 가운데에 문구, 그 아래에 안내 문구 자리를 둔다.
+ * 맨 위에 닫기와 열기 버튼, 가운데에 문구와 작은 요약 패널, 그 아래에 안내 문구 자리를 둔다.
+ * @param info 요약 패널에 보여줄 오늘 사용 시간과 통계. 기본값은 빈 값이라 패널에 행이 생기지 않는다.
  * @param limitReached 쿨타임 중이면 true. 별도의 쿨타임 대기 시간을 적용한다.
  * @param cooldownUntilMs 쿨타임 만료 시각(벽시계 ms). 쿨타임 중이면 남은 시간을 매초 갱신해 보여준다.
  */
 class OverlayView(
     context: Context,
     private val theme: Theme,
-    appLabel: String,
+    private val appLabel: String,
     private val message: String,
     delaySec: Int,
     private val breathing: Boolean,
     limitReached: Boolean,
     limitDelaySec: Int = DurationPolicy.DEFAULT_LIMIT_DELAY_SECONDS,
     private val cooldownUntilMs: Long = 0L,
+    private val info: OverlayInfo = OverlayInfo(),
     private val onOpen: () -> Unit,
     private val onClose: () -> Unit,
 ) : FrameLayout(context) {
@@ -184,6 +186,7 @@ class OverlayView(
 
     private val showCooldown = limitReached && cooldownUntilMs > 0L
     private var cooldownView: TextView? = null
+    private var summaryPanel: View? = null
     private var openBtn: TextView? = null
     private var landscape: Boolean? = null
     private val scroll = ScrollView(context).apply {
@@ -298,12 +301,8 @@ class OverlayView(
 
         root.addView(View(context), LinearLayout.LayoutParams(0, 0, 1f))
         root.addView(label, LinearLayout.LayoutParams(-2, -2))
-        if (showCooldown) {
-            val cooldown = text("", 16f, alpha = 0.7f).apply { setPadding(0, dp(4), 0, 0) }
-            cooldownView = cooldown
-            root.addView(cooldown, LinearLayout.LayoutParams(-2, -2))
-        }
         root.addView(msg, LinearLayout.LayoutParams(-2, -2))
+        buildSummaryPanel()?.let { root.addView(it, LinearLayout.LayoutParams(-2, -2).apply { topMargin = dp(20) }) }
         root.addView(View(context), LinearLayout.LayoutParams(0, 0, 1.2f))
         if (breathing) {
             // 안내 문구는 BreathView가 이 자리에 직접 그린다.
@@ -320,14 +319,62 @@ class OverlayView(
         refreshCooldown()
     }
 
-    /** 쿨타임 남은 시간 줄을 갱신하고 남은 초를 돌려준다. 0이 되면 줄을 숨긴다. */
+    /**
+     * 문구 아래의 작은 요약 패널. 쿨타임 남은 시간, 오늘 사용 시간, 오늘 통계 중 있는 행만 담는다.
+     * 보여줄 행이 하나도 없으면 null. 최대 너비는 280dp이고 글자가 커지면 줄바꿈된다.
+     */
+    private fun buildSummaryPanel(): View? {
+        cooldownView = null
+        summaryPanel = null
+        val rows = ArrayList<TextView>()
+        fun row(s: String, desc: String? = null) = text(s, 13f, alpha = 0.85f).apply {
+            if (desc != null) contentDescription = desc
+            if (rows.isNotEmpty()) setPadding(0, dp(4), 0, 0)
+            rows.add(this)
+        }
+        if (showCooldown) cooldownView = row("")
+        info.usedTodayMs?.let { row(OverlayInfoFormat.usedRow(appLabel, it)) }
+        OverlayInfoFormat.statsRow(info.shown, info.kept)?.let {
+            row(it, OverlayInfoFormat.statsSpoken(info.shown, info.kept))
+        }
+        if (rows.isEmpty()) return null
+
+        val tint = theme.text and 0x00FFFFFF
+        val panel = object : LinearLayout(context) {
+            override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+                val max = dp(280)
+                super.onMeasure(
+                    if (MeasureSpec.getSize(widthMeasureSpec) > max) MeasureSpec.makeMeasureSpec(max, MeasureSpec.AT_MOST) else widthMeasureSpec,
+                    heightMeasureSpec,
+                )
+            }
+        }.apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER_HORIZONTAL
+            setPadding(dp(12), dp(10), dp(12), dp(10))
+            // 테마 글자색의 옅은 반투명 면과 테두리. 뷰 alpha를 쓰지 않아 가장자리가 잘리지 않는다.
+            background = GradientDrawable().apply {
+                setColor(tint or (0x14 shl 24))
+                setStroke(dp(1), tint or (0x33 shl 24))
+                cornerRadius = dp(14).toFloat()
+            }
+        }
+        rows.forEach { panel.addView(it, LinearLayout.LayoutParams(-2, -2)) }
+        // 쿨타임 줄만 있는 패널은 만료되면 빈 상자가 남지 않게 패널째 숨긴다.
+        summaryPanel = panel.takeIf { rows.size == 1 && cooldownView != null }
+        return panel
+    }
+
+    /** 쿨타임 남은 시간 줄을 갱신하고 남은 초를 돌려준다. 0이 되면 줄을 숨긴다(자리는 유지해 레이아웃이 밀리지 않는다). */
     private fun refreshCooldown(): Int {
         val seconds = DurationPolicy.cooldownRemainingSeconds(cooldownUntilMs, System.currentTimeMillis())
+        val visibility = if (seconds > 0) View.VISIBLE else View.INVISIBLE
         cooldownView?.apply {
             text = DurationPolicy.cooldownLabel(seconds)
             contentDescription = "쿨타임 ${DurationPolicy.format(seconds)} 남음"
-            visibility = if (seconds > 0) View.VISIBLE else View.INVISIBLE
+            this.visibility = visibility
         }
+        summaryPanel?.visibility = visibility
         return seconds
     }
 

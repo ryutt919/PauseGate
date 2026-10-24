@@ -169,12 +169,20 @@ class GateService : AccessibilityService() {
     /** cooldownUntilMs는 쿨타임 여부를 판정한 같은 상태에서 읽은 값을 받아 판정과 표시를 맞춘다. */
     private fun showOverlay(pkg: String, cooldown: Boolean, eventToReuse: Long? = null, cooldownUntilMs: Long = 0L) {
         val usedMs = Util.usedTodayMs(this, pkg)
-        if (usedMs > 0) stats.recordUsage(StatsDb.today(), pkg, usedMs)
+        val today = StatsDb.today()
+        if (usedMs > 0) stats.recordUsage(today, pkg, usedMs)
+        // 오늘 이 앱의 끝난 개입. 현재 개입은 begin 전이라 포함되지 않는다. 참음은 StatsActivity와 같은 DayStat.resisted다.
+        val dayStat = stats.appSeries(pkg, today, today)[today] ?: DayStat(0, 0)
+        val info = OverlayInfo(
+            // 사용 정보 접근 권한이 없으면 0분이 아니라 "알 수 없음"(null)으로 전달해 행을 숨긴다.
+            usedTodayMs = if (Util.hasUsageAccess(this)) usedMs else null,
+            shown = dayStat.shown, kept = dayStat.resisted,
+        )
         val view = OverlayView(
             context = this, theme = prefs.theme, appLabel = Util.labelOf(this, pkg),
             message = prefs.message, delaySec = prefs.delaySec, breathing = prefs.breathing,
             limitReached = cooldown, limitDelaySec = prefs.limitDelaySec,
-            cooldownUntilMs = cooldownUntilMs,
+            cooldownUntilMs = cooldownUntilMs, info = info,
             onOpen = {
                 finishEvent("OPENED")
                 prefs.setGraceUntilMs(pkg, System.currentTimeMillis() + DurationPolicy.millis(prefs.graceSec))
