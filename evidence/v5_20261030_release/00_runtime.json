@@ -1,0 +1,64 @@
+{
+  "version": "v5",
+  "events": [
+    {
+      "check": "invalid input and cancellation preserve quota",
+      "elapsed": 24.85,
+      "time": "2026-10-30 19:45:09 KST",
+      "done": 1,
+      "total": 7
+    },
+    {
+      "check": "home extension preserves usage and default",
+      "elapsed": 34.85,
+      "time": "2026-10-30 19:45:19 KST",
+      "done": 2,
+      "total": 7
+    },
+    {
+      "check": "extension survives process restart",
+      "elapsed": 36.25,
+      "time": "2026-10-30 19:45:20 KST",
+      "done": 3,
+      "total": 7
+    },
+    {
+      "check": "wave rises once then stays drained",
+      "elapsed": 54.26,
+      "time": "2026-10-30 19:45:38 KST",
+      "done": 4,
+      "total": 7,
+      "point": [
+        108,
+        1800
+      ]
+    },
+    {
+      "check": "accessibility overlay extension works",
+      "elapsed": 56.13,
+      "time": "2026-10-30 19:45:40 KST",
+      "done": 5,
+      "total": 7
+    },
+    {
+      "check": "cooldown extension preserves usage and resumes quota",
+      "elapsed": 67.37,
+      "time": "2026-10-30 19:45:51 KST",
+      "done": 6,
+      "total": 7
+    },
+    {
+      "check": "next cycle restores default quota",
+      "elapsed": 81.59,
+      "time": "2026-10-30 19:46:06 KST",
+      "done": 7,
+      "total": 7
+    },
+    {
+      "check": "original data hashes and settings restored",
+      "elapsed": 82.89,
+      "time": "2026-10-30 19:46:07 KST",
+      "files": 3
+    }
+  ]
+}

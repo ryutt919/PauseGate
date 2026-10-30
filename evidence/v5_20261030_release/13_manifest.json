@@ -1,0 +1,23 @@
+{
+  "version": "v5",
+  "app_version": "0.9.0",
+  "version_code": 10,
+  "code_commit": "195ca23d16b99fa73648b18f8f8aec2b833aff54",
+  "sha256": "14cc981f711658634109a7e8129d9525a3f202dda90229a546a088cbe0ba78c3",
+  "apk": "build\\releases\\v5_20261030_release\\YouSure-0.9.0.apk",
+  "certificate_sha256": "ecb4ca12e3d212ef619d34533510fa94449fd7a532d83873333f510a4ab347c3",
+  "installed_apk_matches": true,
+  "unit_tests": 45,
+  "lint_errors": 0,
+  "lint_warnings": 25,
+  "runtime_checks": 7,
+  "relative_links_checked": 73,
+  "runtime_script": "scripts/02_release_verify.py",
+  "validation_script": "scripts/03_validate_release.py",
+  "release_url": "https://github.com/ryutt919/PauseGate/releases/tag/v0.9.0",
+  "published": true,
+  "limitations": [
+    "No physical Galaxy device test",
+    "24-hour limit covered by unit tests"
+  ]
+}
