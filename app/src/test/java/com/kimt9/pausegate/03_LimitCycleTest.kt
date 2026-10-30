@@ -118,6 +118,62 @@ class LimitCycleTest {
         assertEquals(LimitCycleState(), repo.state("first", 220_000L))
     }
 
+    @Test fun extensionPreservesUsageAndDefaultAndSurvivesRestartPerApp() {
+        val store = MemoryPreferences(mutableMapOf("limit_first" to 30, "limit_second" to 30))
+        val repository = LimitCycleRepository(store.preferences)
+        repository.addUsage("first", 600_000L, 100_000L)
+        assertTrue(repository.extendCurrentCycle("first", 2, 110_000L))
+        val restarted = LimitCycleRepository(store.preferences)
+        val state = restarted.state("first", 120_000L)
+        assertEquals(600_000L, state.usedMs)
+        assertEquals(7_200_000L, state.effectiveLimitMs(1_800_000L))
+        assertEquals(30, Prefs(store.preferences).limitMin("first"))
+        assertEquals(LimitCycleState(), restarted.state("second", 120_000L))
+    }
+
+    @Test fun extendedQuotaStartsCooldownAndExpiryRestoresDefault() {
+        val store = MemoryPreferences(mutableMapOf("limit_first" to 1, "cooldownSec" to 30))
+        val repository = LimitCycleRepository(store.preferences)
+        assertTrue(repository.extendCurrentCycle("first", 1, 100_000L))
+        assertFalse(repository.addUsage("first", 3_599_999L, 110_000L).isCoolingDown(110_000L))
+        val full = repository.addUsage("first", 1L, 111_000L)
+        assertEquals(141_000L, full.cooldownUntilMs)
+        assertEquals(3_600_000L, full.limitOverrideMs)
+        assertEquals(LimitCycleState(), repository.state("first", 141_000L))
+        assertTrue(repository.addUsage("first", 60_000L, 142_000L).isCoolingDown(142_000L))
+    }
+
+    @Test fun extendingDuringCooldownResumesSameUsageWithoutChangingGrace() {
+        val store = MemoryPreferences(mutableMapOf("limit_first" to 1, "cooldownSec" to 30, "graceUntil_first" to 99L))
+        val repository = LimitCycleRepository(store.preferences)
+        repository.addUsage("first", 60_000L, 100_000L)
+        assertTrue(repository.extendCurrentCycle("first", 1, 110_000L))
+        assertEquals(LimitCycleState(60_000L, 0L, 3_600_000L), repository.state("first", 110_000L))
+        assertEquals(99L, Prefs(store.preferences).graceUntilMs("first"))
+    }
+
+    @Test fun rejectsInvalidHoursUnlimitedAppsAndQuotaReduction() {
+        val store = MemoryPreferences(mutableMapOf("limit_first" to 60))
+        val repository = LimitCycleRepository(store.preferences)
+        for (hours in listOf(-1, 0, 1, 25, Int.MAX_VALUE)) assertFalse(repository.extendCurrentCycle("first", hours, 100_000L))
+        assertFalse(repository.extendCurrentCycle("unlimited", 2, 100_000L))
+        assertTrue(repository.extendCurrentCycle("first", 24, 100_000L))
+        assertFalse(repository.extendCurrentCycle("first", 23, 100_000L))
+        assertFalse(repository.extendCurrentCycle("first", 24, 100_000L))
+        assertEquals(86_400_000L, repository.state("first", 100_000L).limitOverrideMs)
+    }
+
+    @Test fun changingDefaultClearsOverrideButSameDefaultAndMidnightPreserveIt() {
+        val store = MemoryPreferences(mutableMapOf("limit_first" to 30))
+        val repository = LimitCycleRepository(store.preferences)
+        assertTrue(repository.extendCurrentCycle("first", 2, 86_399_000L))
+        val prefs = Prefs(store.preferences)
+        prefs.setLimitMin("first", 30)
+        assertEquals(7_200_000L, repository.state("first", 86_401_000L).limitOverrideMs)
+        prefs.setLimitMin("first", 60)
+        assertEquals(LimitCycleState(), repository.state("first", 86_402_000L))
+    }
+
     private class MemoryPreferences(val values: MutableMap<String, Any> = mutableMapOf()) {
         private val editor = Proxy.newProxyInstance(SharedPreferences.Editor::class.java.classLoader,
             arrayOf(SharedPreferences.Editor::class.java)) { proxy, method, args ->

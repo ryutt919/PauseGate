@@ -108,7 +108,7 @@ class Prefs internal constructor(private val sp: SharedPreferences) {
         require(min >= 0)
         if (min != limitMin(pkg)) {
             sp.edit().putInt("limit_$pkg", min)
-                .remove("cycle_used_$pkg").remove("cycle_until_$pkg").apply()
+                .remove("cycle_used_$pkg").remove("cycle_until_$pkg").remove("cycle_limit_$pkg").apply()
         }
     }
 }

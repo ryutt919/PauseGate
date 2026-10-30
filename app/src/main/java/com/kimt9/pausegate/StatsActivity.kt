@@ -136,7 +136,8 @@ class StatsActivity : Activity() {
         val limit = prefs.limitMin(app.pkg)
         val limited = period == 0 && limit > 0
         val cycle = if (limited) LimitCycleRepository(this).state(app.pkg) else null
-        val fraction = if (cycle != null) (cycle.usedMs / (limit * 60_000f)).coerceIn(0f, 1f) else app.shown.toFloat() / maxShown
+        val effectiveLimit = cycle?.effectiveLimitMs(limit * 60_000L) ?: limit * 60_000L
+        val fraction = if (cycle != null) (cycle.usedMs.toFloat() / effectiveLimit).coerceIn(0f, 1f) else app.shown.toFloat() / maxShown
 
         val wrap = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -159,7 +160,7 @@ class StatsActivity : Activity() {
             if (hasUsage) append("사용 ${fmtMs(usageMs)}")
             if (cycle != null) {
                 if (isNotEmpty()) append("\n")
-                append("이번 주기 ${DurationPolicy.format((cycle.usedMs / 1000L).toInt())} / ${limit}분")
+                append("이번 주기 ${DurationPolicy.format((cycle.usedMs / 1000L).toInt())} / ${DurationPolicy.format((effectiveLimit / 1000L).toInt())}")
                 if (cycle.isCoolingDown(System.currentTimeMillis())) append(" / 쿨타임 중")
             }
         }

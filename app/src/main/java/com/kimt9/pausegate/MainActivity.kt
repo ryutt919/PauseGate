@@ -16,6 +16,7 @@ class MainActivity : ThemedActivity() {
     private lateinit var scroll: ScrollView
     private var cycleText: TextView? = null
     private var cycleNames: Map<String, String> = emptyMap()
+    private val cycleButtons = mutableMapOf<String, TextView>()
     private val handler = Handler(Looper.getMainLooper())
     private val refreshCycles = object : Runnable {
         override fun run() {
@@ -53,12 +54,15 @@ class MainActivity : ThemedActivity() {
         val repository = LimitCycleRepository(this)
         cycleText?.text = cycleNames.entries.joinToString("\n\n") { (pkg, label) ->
             val state = repository.state(pkg, now)
+            val limit = state.effectiveLimitMs(prefs.limitMin(pkg) * 60_000L)
+            cycleButtons[pkg]?.visibility = if (limit < 86_400_000L) android.view.View.VISIBLE else android.view.View.GONE
+            val override = if (state.limitOverrideMs > 0L) "\n이번 주기 한도 ${DurationPolicy.format((limit / 1000L).toInt())}" else ""
             if (state.isCoolingDown(now)) {
                 val remaining = DurationPolicy.cooldownRemainingSeconds(state.cooldownUntilMs, now)
-                "$label / 쿨타임 ${DurationPolicy.format(remaining)} 남음"
+                "$label / 쿨타임 ${DurationPolicy.format(remaining)} 남음$override"
             } else {
-                val left = (prefs.limitMin(pkg) * 60_000L - state.usedMs).coerceAtLeast(0L)
-                "$label / 이용 가능 ${DurationPolicy.format(((left + 999L) / 1000L).toInt())}"
+                val left = (limit - state.usedMs).coerceAtLeast(0L)
+                "$label / 이용 가능 ${DurationPolicy.format(((left + 999L) / 1000L).toInt())}$override"
             }
         }
     }
@@ -89,11 +93,24 @@ class MainActivity : ThemedActivity() {
         content.addView(status)
         cycleNames = prefs.gated.filter { prefs.limitMin(it) > 0 }.associateWith { Util.labelOf(this, it) }
         cycleText = null
+        cycleButtons.clear()
         if (cycleNames.isNotEmpty()) {
             space(24)
             content.addView(screenText("이용 한도", 21f, true))
             cycleText = screenText("", 16f).apply { setPadding(0, px(12), 0, 0) }
             content.addView(cycleText)
+            cycleNames.forEach { (pkg, label) ->
+                val button = actionButton("$label / 이번 주기만 시간 늘리기", false) {
+                    val repository = LimitCycleRepository(this)
+                    val state = repository.state(pkg)
+                    val limit = state.effectiveLimitMs(prefs.limitMin(pkg) * 60_000L)
+                    if (limit < 86_400_000L) showCycleExtensionPicker(this, label, limit) { hours ->
+                        repository.extendCurrentCycle(pkg, hours).also { updateCycles() }
+                    }
+                }
+                cycleButtons[pkg] = button
+                content.addView(button)
+            }
             updateCycles()
         }
         space(28)

@@ -142,7 +142,8 @@ class AppPickerActivity : Activity() {
                 text = if (limit == 0) "한도 없음" else {
                     val now = System.currentTimeMillis()
                     val cycle = LimitCycleRepository(this@AppPickerActivity).state(app.pkg, now)
-                    if (cycle.isCoolingDown(now)) "${limit}분/주기\n쿨타임 중" else "${limit}분/주기"
+                    val temporary = if (cycle.limitOverrideMs > 0L) "\n이번만 ${DurationPolicy.format((cycle.effectiveLimitMs(limit * 60_000L) / 1000L).toInt())}" else ""
+                    "${limit}분/주기$temporary" + if (cycle.isCoolingDown(now)) "\n쿨타임 중" else ""
                 }
                 textSize = 13f
                 setTextColor(0xFF3F7D6E.toInt())

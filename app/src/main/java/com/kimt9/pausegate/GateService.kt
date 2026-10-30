@@ -178,11 +178,24 @@ class GateService : AccessibilityService() {
             usedTodayMs = if (Util.hasUsageAccess(this)) usedMs else null,
             shown = dayStat.shown, kept = dayStat.resisted,
         )
+        val cycle = cycles.state(pkg)
+        val cycleLimit = if (prefs.limitMin(pkg) > 0) cycle.effectiveLimitMs(prefs.limitMin(pkg) * 60_000L) else 0L
         val view = OverlayView(
             context = this, theme = prefs.theme, appLabel = Util.labelOf(this, pkg),
             message = prefs.message, delaySec = prefs.delaySec, breathing = prefs.breathing,
             limitReached = cooldown, limitDelaySec = prefs.limitDelaySec,
             cooldownUntilMs = cooldownUntilMs, info = info,
+            animateBreath = eventToReuse == null,
+            cycleLimitMs = cycleLimit,
+            onExtendCycle = if (cycleLimit > 0L) { hours ->
+                if (cycles.extendCurrentCycle(pkg, hours)) {
+                    val currentEvent = eventId
+                    eventId = null
+                    removeOverlay()
+                    showOverlay(pkg, false, currentEvent)
+                    true
+                } else false
+            } else null,
             onOpen = {
                 finishEvent("OPENED")
                 prefs.setGraceUntilMs(pkg, System.currentTimeMillis() + DurationPolicy.millis(prefs.graceSec))

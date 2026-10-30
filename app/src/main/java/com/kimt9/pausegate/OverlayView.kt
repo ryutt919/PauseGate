@@ -1,6 +1,9 @@
 package com.kimt9.pausegate
 
 import android.animation.ValueAnimator
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.LinearGradient
@@ -30,7 +33,7 @@ import kotlin.math.sin
 
 /**
  * 숨쉬기 연출. 4초 동안 화면 아래에서 불투명한 물결이 차올라 화면 전체를 덮고(들숨),
- * 4초 동안 다시 내려간다(날숨). 내용 위에 그려지므로 글자와 버튼도 덮는다.
+ * 4초 동안 다시 내려간 뒤 멈춘다(날숨). 내용 위에 그려지므로 글자와 버튼도 덮는다.
  * 안내 문구(cue)는 slot 위치에 직접 그린다. 물 위쪽은 밝은 글자, 물에 잠긴 쪽은 어두운 글자로 나눠 그려
  * 어느 쪽에서도 읽힌다.
  * 터치는 받지 않으므로 물이 차 있어도 아래의 버튼이 눌린다.
@@ -39,6 +42,7 @@ class BreathView(
     context: Context,
     private val theme: Theme,
     private val cue: String,
+    private val animate: Boolean = true,
 ) : View(context) {
     /** 안내 문구를 그릴 자리. OverlayView가 레이아웃을 만들 때마다 갱신한다. */
     var slot: View? = null
@@ -46,6 +50,7 @@ class BreathView(
     private val density = resources.displayMetrics.density
     private var level = 0f
     private var shift = 0f
+    private var started = false
     private val amp = 8f * density
     private val waveLen = 360f * density
     private val water = Path()
@@ -66,10 +71,10 @@ class BreathView(
 
     private val levelAnim = ValueAnimator.ofFloat(0f, 1f).apply {
         duration = 4000
-        repeatCount = ValueAnimator.INFINITE
+        repeatCount = 1
         repeatMode = ValueAnimator.REVERSE
         interpolator = AccelerateDecelerateInterpolator()
-        addUpdateListener { level = it.animatedValue as Float }
+        addUpdateListener { level = it.animatedValue as Float; invalidate() }
     }
 
     private val waveAnim = ValueAnimator.ofFloat(0f, (2 * PI).toFloat()).apply {
@@ -93,8 +98,18 @@ class BreathView(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        levelAnim.start()
-        waveAnim.start()
+        if (animate && !started) {
+            started = true
+            levelAnim.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    waveAnim.cancel()
+                    level = 0f
+                    invalidate()
+                }
+            })
+            waveAnim.start()
+            levelAnim.start()
+        }
     }
 
     override fun onDetachedFromWindow() {
@@ -173,6 +188,9 @@ class OverlayView(
     limitDelaySec: Int = DurationPolicy.DEFAULT_LIMIT_DELAY_SECONDS,
     private val cooldownUntilMs: Long = 0L,
     private val info: OverlayInfo = OverlayInfo(),
+    animateBreath: Boolean = true,
+    private val cycleLimitMs: Long = 0L,
+    private val onExtendCycle: ((Int) -> Boolean)? = null,
     private val onOpen: () -> Unit,
     private val onClose: () -> Unit,
 ) : FrameLayout(context) {
@@ -193,7 +211,8 @@ class OverlayView(
         isFillViewport = true
         isVerticalScrollBarEnabled = false
     }
-    private val breath: BreathView? = if (breathing) BreathView(context, theme, "호흡하세요") else null
+    private val breath: BreathView? = if (breathing) BreathView(context, theme, "호흡하세요", animateBreath) else null
+    private var extensionDialog: AlertDialog? = null
 
     private val tick = object : Runnable {
         override fun run() {
@@ -295,6 +314,17 @@ class OverlayView(
         buttons.addView(close, LinearLayout.LayoutParams(0, dp(52), 1f))
         buttons.addView(open, LinearLayout.LayoutParams(0, dp(52), 1f).apply { leftMargin = dp(10) })
         root.addView(buttons, LinearLayout.LayoutParams(-1, -2))
+        if (onExtendCycle != null && cycleLimitMs in 1 until 86_400_000L) {
+            root.addView(text("이번 주기만 시간 늘리기", 15f).apply {
+                minimumHeight = dp(48)
+                isFocusable = true
+                setOnClickListener {
+                    if (extensionDialog?.isShowing != true) {
+                        extensionDialog = showCycleExtensionPicker(context, appLabel, cycleLimitMs, true, onExtendCycle)
+                    }
+                }
+            }, LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(8) })
+        }
 
         val label = text(labelText, 16f, alpha = 0.7f)
         val msg = text(message, if (land) 28f else 34f, bold = true).apply { setPadding(0, dp(12), 0, 0) }
@@ -401,6 +431,8 @@ class OverlayView(
     }
 
     override fun onDetachedFromWindow() {
+        extensionDialog?.dismiss()
+        extensionDialog = null
         removeCallbacks(tick)
         removeCallbacks(cooldownTick)
         super.onDetachedFromWindow()
