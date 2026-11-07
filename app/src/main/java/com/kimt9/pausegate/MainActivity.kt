@@ -104,8 +104,8 @@ class MainActivity : ThemedActivity() {
                     val repository = LimitCycleRepository(this)
                     val state = repository.state(pkg)
                     val limit = state.effectiveLimitMs(prefs.limitMin(pkg) * 60_000L)
-                    if (limit < 86_400_000L) showCycleExtensionPicker(this, label, limit) { hours ->
-                        repository.extendCurrentCycle(pkg, hours).also { updateCycles() }
+                    if (limit < 86_400_000L) showCycleExtensionPicker(this, label, limit) { totalMinutes ->
+                        repository.extendCurrentCycle(pkg, totalMinutes).also { updateCycles() }
                     }
                 }
                 cycleButtons[pkg] = button

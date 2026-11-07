@@ -1,0 +1,29 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "all three permission links open their OS-resolved settings screens",
+      "elapsed": 28.41,
+      "time": "2026-11-07 20:46:24 KST",
+      "passed": true
+    },
+    {
+      "check": "individual selection preserves multiple apps and sorts selected apps first",
+      "elapsed": 54.87,
+      "time": "2026-11-07 20:46:50 KST",
+      "passed": true
+    },
+    {
+      "check": "no application crash",
+      "elapsed": 54.93,
+      "time": "2026-11-07 20:46:50 KST",
+      "passed": true
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 56.71,
+      "time": "2026-11-07 20:46:52 KST",
+      "files": 3
+    }
+  ]
+}

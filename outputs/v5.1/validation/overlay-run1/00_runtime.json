@@ -1,0 +1,65 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "overlay keyboard minute edit/cancel/save preserves usage and same pending event",
+      "elapsed": 39.21,
+      "time": "2026-11-07 20:27:20 KST",
+      "passed": true
+    },
+    {
+      "check": "normal wait opens app and resumes real usage counting",
+      "elapsed": 45.98,
+      "time": "2026-11-07 20:27:27 KST",
+      "passed": true
+    },
+    {
+      "check": "cooldown early open blocked, minute extension clears cooldown without resetting usage/event",
+      "elapsed": 58.55,
+      "time": "2026-11-07 20:27:39 KST",
+      "passed": true
+    },
+    {
+      "check": "real foreground use exhausts the extended 2-minute total and starts cooldown",
+      "elapsed": 125.01,
+      "time": "2026-11-07 20:28:46 KST",
+      "passed": true
+    },
+    {
+      "check": "cooldown expiration restores permanent 1-minute quota and resets only cycle state",
+      "elapsed": 136.54,
+      "time": "2026-11-07 20:28:57 KST",
+      "passed": true
+    },
+    {
+      "check": "close button records resisted outcome and returns home",
+      "elapsed": 137.86,
+      "time": "2026-11-07 20:28:58 KST",
+      "passed": true
+    },
+    {
+      "check": "unlimited app still intervenes, grace prevents duplicate intervention after reopening",
+      "elapsed": 150.21,
+      "time": "2026-11-07 20:29:11 KST",
+      "passed": true
+    },
+    {
+      "check": "intervention works without usage permission and leaving records dismissed outcome",
+      "elapsed": 157.2,
+      "time": "2026-11-07 20:29:18 KST",
+      "passed": true
+    },
+    {
+      "check": "no application crash",
+      "elapsed": 157.27,
+      "time": "2026-11-07 20:29:18 KST",
+      "passed": true
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 159.03,
+      "time": "2026-11-07 20:29:20 KST",
+      "files": 3
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "app statistics row expands recent seven-day chart",
+      "elapsed": 18.99,
+      "time": "2026-11-07 20:42:36 KST",
+      "passed": true
+    },
+    {
+      "check": "calendar month navigation and date touch change day details",
+      "elapsed": 40.41,
+      "time": "2026-11-07 20:42:57 KST",
+      "passed": true
+    },
+    {
+      "check": "suite failed",
+      "elapsed": 50.74,
+      "time": "2026-11-07 20:43:08 KST",
+      "error": ""
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 53.04,
+      "time": "2026-11-07 20:43:10 KST",
+      "files": 3
+    }
+  ]
+}

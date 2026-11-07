@@ -1,0 +1,4 @@
+    topResumedActivity=ActivityRecord{c7ec279 u0 com.android.settings/.spa.SpaActivity t120}
+    mLastPausedActivity: ActivityRecord{3524dd4 u0 com.android.settings/.Settings$AppBatteryUsageActivity t120 f}}
+      mLastPausedActivity: ActivityRecord{3f9ff1c u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t107}
+    mLastPausedActivity: ActivityRecord{a5ac495 u0 com.android.settings/.Settings t110}

@@ -1,0 +1,23 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "overlay dialog ready for measured input",
+      "elapsed": 18.1,
+      "time": "2026-11-06 02:36:25 KST",
+      "probe": true
+    },
+    {
+      "check": "no application crash",
+      "elapsed": 18.2,
+      "time": "2026-11-06 02:36:25 KST",
+      "passed": true
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 20.62,
+      "time": "2026-11-06 02:36:27 KST",
+      "files": 3
+    }
+  ]
+}

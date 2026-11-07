@@ -1,0 +1,41 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "invalid/same/reduced/empty/over-24h inputs and cancel preserve state",
+      "elapsed": 123.86,
+      "time": "2026-11-06 02:32:43 KST",
+      "passed": true
+    },
+    {
+      "check": "30 to 31 minute total quota preserves 10 minute usage and 30 minute default",
+      "elapsed": 142.16,
+      "time": "2026-11-06 02:33:01 KST",
+      "passed": true
+    },
+    {
+      "check": "extension survives process restart and supports mixed hours/minutes",
+      "elapsed": 166.86,
+      "time": "2026-11-06 02:33:26 KST",
+      "passed": true
+    },
+    {
+      "check": "24 hours allowed and extension button hidden at maximum",
+      "elapsed": 184.49,
+      "time": "2026-11-06 02:33:43 KST",
+      "passed": true
+    },
+    {
+      "check": "suite failed",
+      "elapsed": 263.55,
+      "time": "2026-11-06 02:35:02 KST",
+      "error": "list index out of range"
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 267.17,
+      "time": "2026-11-06 02:35:06 KST",
+      "files": 3
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "suite failed",
+      "elapsed": 17.97,
+      "time": "2026-11-06 02:30:04 KST",
+      "error": "UI text not found: 이번 주기만 시간 늘리기"
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 20.7,
+      "time": "2026-11-06 02:30:07 KST",
+      "files": 3
+    }
+  ]
+}

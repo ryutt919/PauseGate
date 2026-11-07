@@ -187,8 +187,8 @@ class GateService : AccessibilityService() {
             cooldownUntilMs = cooldownUntilMs, info = info,
             animateBreath = eventToReuse == null,
             cycleLimitMs = cycleLimit,
-            onExtendCycle = if (cycleLimit > 0L) { hours ->
-                if (cycles.extendCurrentCycle(pkg, hours)) {
+            onExtendCycle = if (cycleLimit > 0L) { totalMinutes ->
+                if (cycles.extendCurrentCycle(pkg, totalMinutes)) {
                     val currentEvent = eventId
                     eventId = null
                     removeOverlay()

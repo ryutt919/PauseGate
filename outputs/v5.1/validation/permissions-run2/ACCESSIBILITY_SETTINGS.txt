@@ -1,0 +1,1 @@
+    topResumedActivity=ActivityRecord{1c31ce2 u0 com.android.settings/.Settings$AccessibilitySettingsActivity t120}

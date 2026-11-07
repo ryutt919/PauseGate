@@ -1,0 +1,23 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "landscape and 150 percent text extension input remains usable",
+      "elapsed": 30.58,
+      "time": "2026-11-07 20:39:50 KST",
+      "passed": true
+    },
+    {
+      "check": "no application crash",
+      "elapsed": 30.64,
+      "time": "2026-11-07 20:39:50 KST",
+      "passed": true
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 32.88,
+      "time": "2026-11-07 20:39:52 KST",
+      "files": 3
+    }
+  ]
+}

@@ -30,10 +30,10 @@ class LimitCycleRepository internal constructor(private val sp: SharedPreference
     }
 
     /** Extend the total quota, preserving usage and the default for subsequent cycles. */
-    fun extendCurrentCycle(pkg: String, hours: Int, nowMs: Long = System.currentTimeMillis()): Boolean {
-        if (hours !in 1..24 || prefs.limitMin(pkg) <= 0) return false
+    fun extendCurrentCycle(pkg: String, totalMinutes: Int, nowMs: Long = System.currentTimeMillis()): Boolean {
+        if (totalMinutes !in 1..1440 || prefs.limitMin(pkg) <= 0) return false
         val current = state(pkg, nowMs)
-        val limit = hours * 3_600_000L
+        val limit = totalMinutes * 60_000L
         if (limit <= current.effectiveLimitMs(prefs.limitMin(pkg) * 60_000L) || limit <= current.usedMs) return false
         save(pkg, current.copy(cooldownUntilMs = 0L, limitOverrideMs = limit))
         return true

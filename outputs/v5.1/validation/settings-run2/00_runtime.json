@@ -1,0 +1,41 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "four duration settings save independently through UI",
+      "elapsed": 90.85,
+      "time": "2026-11-07 20:31:20 KST",
+      "passed": true
+    },
+    {
+      "check": "app search/select/deselect and permanent quota change reset current cycle",
+      "elapsed": 121.06,
+      "time": "2026-11-07 20:31:50 KST",
+      "passed": true
+    },
+    {
+      "check": "master switch disables and reenables intervention",
+      "elapsed": 135.77,
+      "time": "2026-11-07 20:32:04 KST",
+      "passed": true
+    },
+    {
+      "check": "all four statistics periods and calendar/app tabs render",
+      "elapsed": 165.43,
+      "time": "2026-11-07 20:32:34 KST",
+      "passed": true
+    },
+    {
+      "check": "no application crash",
+      "elapsed": 165.5,
+      "time": "2026-11-07 20:32:34 KST",
+      "passed": true
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 167.07,
+      "time": "2026-11-07 20:32:36 KST",
+      "files": 3
+    }
+  ]
+}

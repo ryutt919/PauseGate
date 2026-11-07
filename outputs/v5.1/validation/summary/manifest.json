@@ -1,0 +1,187 @@
+{
+  "version": "v5.1",
+  "app_version": "0.9.1",
+  "version_code": 11,
+  "apk": "outputs\\v5.1\\apk\\YouSure-0.9.1.apk",
+  "sha256": "6457efedcec3db5fa92cbf8608152a13980bb0a6b25c2c73206da229da537c72",
+  "signing_certificate_sha256": "ecb4ca12e3d212ef619d34533510fa94449fd7a532d83873333f510a4ab347c3",
+  "installed_apk_matches": true,
+  "unit_tests": [
+    "com.kimt9.pausegate.CooldownRemainingTest.justBeforeAndAfterExpiry",
+    "com.kimt9.pausegate.CooldownRemainingTest.remainingSecondsRoundUpPartialSecond",
+    "com.kimt9.pausegate.CooldownRemainingTest.expiredOrPastDeadlineClampsToZero",
+    "com.kimt9.pausegate.CooldownRemainingTest.maximumCooldownOfOneDay",
+    "com.kimt9.pausegate.CooldownRemainingTest.hourBoundaryUsesMinutesBelowAndClockAtOrAbove",
+    "com.kimt9.pausegate.CooldownRemainingTest.labelFormatsShortRemainders",
+    "com.kimt9.pausegate.DurationPolicyTest.durationTextStaysReadableAcrossUnits",
+    "com.kimt9.pausegate.DurationPolicyTest.longCountdownFitsCompactButtonWithoutLosingSeconds",
+    "com.kimt9.pausegate.DurationPolicyTest.oneDayUsesLongMilliseconds",
+    "com.kimt9.pausegate.DurationPolicyTest.delayedCallbacksAndSleepDoNotExtendCountdown",
+    "com.kimt9.pausegate.DurationPolicyTest.legacyMinutesBecomeSecondsWithoutOverflow",
+    "com.kimt9.pausegate.LimitCycleTest.minuteExtensionDuringCooldownExhaustsAndRestoresDefaultNextCycle",
+    "com.kimt9.pausegate.LimitCycleTest.freshQuotaCanBeExhaustedRepeatedly",
+    "com.kimt9.pausegate.LimitCycleTest.changingWaitDoesNotExtendCurrentCooldownPeriod",
+    "com.kimt9.pausegate.LimitCycleTest.changingQuotaAlsoClearsExistingCooldown",
+    "com.kimt9.pausegate.LimitCycleTest.extendingDuringCooldownResumesSameUsageWithoutChangingGrace",
+    "com.kimt9.pausegate.LimitCycleTest.cooldownPeriodAndWaitHaveIndependentDefaultsAndSavedValues",
+    "com.kimt9.pausegate.LimitCycleTest.fullDayCooldownUsesLongMilliseconds",
+    "com.kimt9.pausegate.LimitCycleTest.cooldownIgnoresUsageAndExpiresWhileAppIsClosed",
+    "com.kimt9.pausegate.LimitCycleTest.extensionPreservesUsageAndDefaultAndSurvivesRestartPerApp",
+    "com.kimt9.pausegate.LimitCycleTest.extendedQuotaStartsCooldownAndExpiryRestoresDefault",
+    "com.kimt9.pausegate.LimitCycleTest.usageAndCooldownSurviveRepositoryRecreationAndStayPerApp",
+    "com.kimt9.pausegate.LimitCycleTest.rejectsInvalidMinutesUnlimitedAppsAndQuotaReduction",
+    "com.kimt9.pausegate.LimitCycleTest.minuteExtensionPreservesUsageAndRejectsSameOrShorterQuota",
+    "com.kimt9.pausegate.LimitCycleTest.changedQuotaStartsNewCycleButSameValuePreservesCurrentCycle",
+    "com.kimt9.pausegate.LimitCycleTest.repositoryUsesSameCooldownBoundsAsSettings",
+    "com.kimt9.pausegate.LimitCycleTest.ordinaryGraceCannotChangeCycleState",
+    "com.kimt9.pausegate.LimitCycleTest.quotaStartsCooldownPeriodAtExactThreshold",
+    "com.kimt9.pausegate.LimitCycleTest.existingMillisecondOverrideRemainsCompatibleWithMinuteExtension",
+    "com.kimt9.pausegate.LimitCycleTest.changingDefaultClearsOverrideButSameDefaultAndMidnightPreserveIt",
+    "com.kimt9.pausegate.LimitCycleTest.midnightDoesNotResetPartialQuota",
+    "com.kimt9.pausegate.LimitCycleTest.noLimitDoesNotAccumulateOrBlock",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.spokenStatsUsesWords",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.usedDurationUnderOneMinute",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.usedRowIncludesAppName",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.noInterventionsHidesStats",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.usedDurationMinutesAndHours",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.percentMatchesDayStatDefinition",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.percentRoundsHalfUpLikeStatsScreen",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.keptIsClampedToShown",
+    "com.kimt9.pausegate.OverlayInfoFormatTest.statsRowSampleAndAllKept",
+    "com.kimt9.pausegate.PrefsTest.allSettingsSupportOneDayAndRemainIndependent",
+    "com.kimt9.pausegate.PrefsTest.rejectsDelayBelowMinimum",
+    "com.kimt9.pausegate.PrefsTest.existingDelayAndGraceArePreservedOnUpgrade",
+    "com.kimt9.pausegate.PrefsTest.rejectsZeroLimitDelay",
+    "com.kimt9.pausegate.PrefsTest.secondBasedGraceTakesPriorityOverLegacyValue",
+    "com.kimt9.pausegate.PrefsTest.rejectsGraceOverOneDay",
+    "com.kimt9.pausegate.PrefsTest.graceDeadlineSurvivesNewPrefsInstanceAndIsPerApp"
+  ],
+  "lint_errors": 0,
+  "lint_warnings": 25,
+  "runtime": {
+    "home-run2": {
+      "checks": [
+        "invalid/same/reduced/empty/over-24h inputs and cancel preserve state",
+        "30 to 31 minute total quota preserves 10 minute usage and 30 minute default",
+        "extension survives process restart and supports mixed hours/minutes",
+        "24 hours allowed and extension button hidden at maximum"
+      ],
+      "source": "outputs\\v5.1\\validation\\home-run2\\00_runtime.json",
+      "historical_harness_failures": [
+        {
+          "check": "suite failed",
+          "elapsed": 263.55,
+          "time": "2026-11-06 02:35:02 KST",
+          "error": "list index out of range"
+        }
+      ],
+      "backup_point": "after initial home launch"
+    },
+    "settings-run2": {
+      "checks": [
+        "four duration settings save independently through UI",
+        "app search/select/deselect and permanent quota change reset current cycle",
+        "master switch disables and reenables intervention",
+        "all four statistics periods and calendar/app tabs render"
+      ],
+      "source": "outputs\\v5.1\\validation\\settings-run2\\00_runtime.json",
+      "historical_harness_failures": [],
+      "backup_point": "before installation/launch"
+    },
+    "overlay-run1": {
+      "checks": [
+        "overlay keyboard minute edit/cancel/save preserves usage and same pending event",
+        "normal wait opens app and resumes real usage counting",
+        "cooldown early open blocked, minute extension clears cooldown without resetting usage/event",
+        "real foreground use exhausts the extended 2-minute total and starts cooldown",
+        "cooldown expiration restores permanent 1-minute quota and resets only cycle state",
+        "close button records resisted outcome and returns home",
+        "unlimited app still intervenes, grace prevents duplicate intervention after reopening",
+        "intervention works without usage permission and leaving records dismissed outcome"
+      ],
+      "source": "outputs\\v5.1\\validation\\overlay-run1\\00_runtime.json",
+      "historical_harness_failures": [],
+      "backup_point": "after initial home launch"
+    },
+    "design-run1": {
+      "checks": [
+        "all six themes apply and preview closes",
+        "custom message and breathing one rise/fall without replay"
+      ],
+      "source": "outputs\\v5.1\\validation\\design-run1\\00_runtime.json",
+      "historical_harness_failures": [
+        {
+          "check": "suite failed",
+          "elapsed": 167.57,
+          "time": "2026-11-07 20:36:12 KST",
+          "error": "list index out of range"
+        }
+      ],
+      "backup_point": "before installation/launch"
+    },
+    "layout-run2": {
+      "checks": [
+        "landscape and 150 percent text extension input remains usable"
+      ],
+      "source": "outputs\\v5.1\\validation\\layout-run2\\00_runtime.json",
+      "historical_harness_failures": [],
+      "backup_point": "before installation/launch"
+    },
+    "details-run2": {
+      "checks": [
+        "app statistics row expands recent seven-day chart",
+        "calendar month navigation and date touch change day details"
+      ],
+      "source": "outputs\\v5.1\\validation\\details-run2\\00_runtime.json",
+      "historical_harness_failures": [
+        {
+          "check": "suite failed",
+          "elapsed": 50.74,
+          "time": "2026-11-07 20:43:08 KST",
+          "error": ""
+        }
+      ],
+      "backup_point": "before installation/launch"
+    },
+    "permissions-run2": {
+      "checks": [
+        "all three permission links open their OS-resolved settings screens",
+        "individual selection preserves multiple apps and sorts selected apps first"
+      ],
+      "source": "outputs\\v5.1\\validation\\permissions-run2\\00_runtime.json",
+      "historical_harness_failures": [],
+      "backup_point": "before installation/launch"
+    }
+  },
+  "feature_check_groups": 23,
+  "source_sha256": {
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\11_DurationPolicy.kt": "f054198637e060ad51dd9e00ca961c6f58b8965aa1760e700213ca21de2351a8",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\12_SettingsActivity.kt": "0531129feeebd03e29378347cb4a98bcdd4595ad8691845fb2456444df056e79",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\13_ThemedActivity.kt": "f006207d461fdb65846dfe7ce6aaa47fa0921de414665481c3ad39c6cfeb7444",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\14_DurationPicker.kt": "c73e707978ff21b1e4bc88969603d8525ead464f33de39b7176f01b59820f482",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\15_LimitCyclePolicy.kt": "1fa0101e92e09d28948d06e6d2d66b2489380ecbd2eea90c5e9a579dd9376680",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\16_LimitCycleRepository.kt": "3d7631c202a56709b1dd09787652fe5d7f28ec73206f741a7016ce96e5705ae0",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\17_OverlayInfo.kt": "18c1e6e62fe1ccd2f8d09c6b432398877fb540ad3058b03bc2724f7192c51a09",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\18_CycleExtensionPicker.kt": "3f8fcfd32f61aaa6a5dea33ebb65931ace9c9b05213a303ae3a8d44063046a6e",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\AppPickerActivity.kt": "9a3607a70a46e25fa3abe85d7ec74f88e3831faaae6e925bbc9ffbc89f540c17",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\GateService.kt": "039b50c9a5b6157e7647622513401716fb9cdf16b25e4911a57259d9d629ea93",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\MainActivity.kt": "aa5f1aeb3baf16d7fb63b3b1d5dddab1dbb0b9d77f1edd6d8c69aa27307981a0",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\OverlayView.kt": "3887c053333d329e67581a745c0b8b605e4c89ba7b23a86336316997b6ce3b60",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\Prefs.kt": "69f8ba505a2c0bd8160f67562d487fa75ee96ecda18a2209d2df76830b8e20da",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\StatsActivity.kt": "eafaf28f0de2060ea2150cf0c54f06a23149458efaec326cab58872d7a43dd11",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\StatsDb.kt": "2e82adb35fc32d6e2cc732826357681bb70fd72d56d0be298c8faaf35cc41b38",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\StatsViews.kt": "01627ee363cd0d447ec25dbfc223b97fa835df912b7066868932f047a5c4b787",
+    "app\\src\\main\\java\\com\\kimt9\\pausegate\\Util.kt": "b2fd7efa5dd4cbbd619ccfd75fe3fed11371deefe3b7fc1b98d430719b8d091f",
+    "app\\src\\test\\java\\com\\kimt9\\pausegate\\01_DurationPolicyTest.kt": "dae1a417d4d32038071fdec3a0648de9f86d629e228e968506d304463974995b",
+    "app\\src\\test\\java\\com\\kimt9\\pausegate\\02_PrefsTest.kt": "76b92970a683c99be43589b8fa2b4363d170799899236ae8a49201ec0d16fba7",
+    "app\\src\\test\\java\\com\\kimt9\\pausegate\\03_LimitCycleTest.kt": "dd7f6dd4642c1da5cdd368b6afe446b952fd33d700069c81f1670cb0cea43148",
+    "app\\src\\test\\java\\com\\kimt9\\pausegate\\04_CooldownRemainingTest.kt": "a28f68ad4ec61cb30d6f4bad21e68a3144b5b7f4308e822d886595f493d6f20d",
+    "app\\src\\test\\java\\com\\kimt9\\pausegate\\05_OverlayInfoFormatTest.kt": "eb79534c1461d686c352016028c5df2b221476a76923d06ee616f1aee68e16e0"
+  },
+  "published": false,
+  "limitations": [
+    "API35 emulator only; no physical Galaxy or TalkBack voice test",
+    "Existing lint warnings remain",
+    "Historical harness failures preserved in earlier runs"
+  ]
+}

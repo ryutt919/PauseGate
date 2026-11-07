@@ -1,0 +1,23 @@
+{
+  "version": "v5.1",
+  "events": [
+    {
+      "check": "four duration settings save independently through UI",
+      "elapsed": 98.98,
+      "time": "2026-11-06 02:38:17 KST",
+      "passed": true
+    },
+    {
+      "check": "suite failed",
+      "elapsed": 129.01,
+      "time": "2026-11-06 02:38:47 KST",
+      "error": "UI text not found: 설정"
+    },
+    {
+      "check": "original data hashes and device settings restored",
+      "elapsed": 131.81,
+      "time": "2026-11-06 02:38:50 KST",
+      "files": 3
+    }
+  ]
+}
