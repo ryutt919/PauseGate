@@ -1,0 +1,43 @@
+{
+  "assets": [
+    {
+      "apiUrl": "https://api.github.com/repos/ryutt919/PauseGate/releases/assets/720591865",
+      "contentType": "application/vnd.android.package-archive",
+      "createdAt": "2026-11-07T12:03:25Z",
+      "digest": "sha256:6457efedcec3db5fa92cbf8608152a13980bb0a6b25c2c73206da229da537c72",
+      "downloadCount": 0,
+      "id": "RA_kwDOVAzc-s4q81v5",
+      "label": "",
+      "name": "YouSure-0.9.1.apk",
+      "size": 1629472,
+      "state": "uploaded",
+      "updatedAt": "2026-11-07T12:03:26Z",
+      "url": "https://github.com/ryutt919/PauseGate/releases/download/v0.9.1/YouSure-0.9.1.apk"
+    },
+    {
+      "apiUrl": "https://api.github.com/repos/ryutt919/PauseGate/releases/assets/720591871",
+      "contentType": "application/octet-stream",
+      "createdAt": "2026-11-07T12:03:25Z",
+      "digest": "sha256:75ca717b27a5eddc1019076032a3168127fc95ed55d1b56fad8dc3af85f682cb",
+      "downloadCount": 0,
+      "id": "RA_kwDOVAzc-s4q81v_",
+      "label": "",
+      "name": "YouSure-0.9.1.apk.sha256",
+      "size": 85,
+      "state": "uploaded",
+      "updatedAt": "2026-11-07T12:03:25Z",
+      "url": "https://github.com/ryutt919/PauseGate/releases/download/v0.9.1/YouSure-0.9.1.apk.sha256"
+    }
+  ],
+  "isDraft": false,
+  "isPrerelease": false,
+  "publishedAt": "2026-11-07T12:03:26Z",
+  "tagName": "v0.9.1",
+  "targetCommitish": "main",
+  "url": "https://github.com/ryutt919/PauseGate/releases/tag/v0.9.1",
+  "download_sha256": "6457efedcec3db5fa92cbf8608152a13980bb0a6b25c2c73206da229da537c72",
+  "download_matches_tested_apk": true,
+  "checksum_asset_matches": true,
+  "code_commit": "aad124e88c713fb12f02c52b489c27c638688755",
+  "push_guard": "selftest, manual scan and installed native pre-push hook passed"
+}
